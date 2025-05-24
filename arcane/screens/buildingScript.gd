@@ -116,13 +116,10 @@ func _on_upgrade_button_pressed():
 
 func _on_button_pressed() -> void:
 	if worldChangeBool:
-		for i in range(20):
-			camera.position = Vector2(0,972)
+		camera.position = Vector2(0,972)
+		worldChangeBool = false
 	else:
-		for i in range(20):
-			var count = 1000 -i *50
-			camera.position = Vector2(0.0,0.0)
-			await get_tree().create_timer(0.0000000000000001).timeout
-			worldChangeBool = true
+		camera.position = Vector2(0.0,0.0)
+		worldChangeBool = true
 		return
 	pass # Replace with function body.

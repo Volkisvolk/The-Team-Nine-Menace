@@ -1,6 +1,8 @@
 extends Node
 
-@onready var tileMapLayer: TileMapLayer = $tileMapLayer
+@onready var floorLayer: TileMapLayer = $floorLayer
+@onready var wallLayer: TileMapLayer = $wallLayer
+@onready var buildingLayer: TileMapLayer = $buildingLayer
 @onready var buildDialog: AcceptDialog = $"../buildDialog"
 @onready var camera: Camera2D = $"../Camera2D"
 var worldChangeBool = true # true equals Overworld
@@ -8,12 +10,12 @@ var worldChangeBool = true # true equals Overworld
 var clickedTile
 
 func _ready():
-	var path = "Node2D/board/tileMapLayer"  # passe das ggf. an
+	var path = "Node2D/board/floorLayer"  # passe das ggf. an
 	if has_node(path):
-		tileMapLayer = get_node(path)
-		print("TileMapLayer gefunden: ", tileMapLayer)
+		floorLayer = get_node(path)
+		print("floorLayer gefunden: ", floorLayer)
 	else:
-		print("TileMapLayer NICHT gefunden!")
+		print("floorLayer NICHT gefunden!")
 
 
 # Hier Buildable Flächen geben, am besten sagen wir jewals arrays für gebäude und dann gebe nwir die gebäude da rein. Frag Volki
@@ -33,7 +35,7 @@ var buildable_tiles: Array[Vector2i] = [
 func _unhandled_input(event: InputEvent) -> void:
 	
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		clickedTile = tileMapLayer.local_to_map(tileMapLayer.get_local_mouse_position())
+		clickedTile = floorLayer.local_to_map(floorLayer.get_local_mouse_position())
 		print(clickedTile)
 		if clickedTile in buildable_tiles:
 			open_build_dialog(clickedTile)

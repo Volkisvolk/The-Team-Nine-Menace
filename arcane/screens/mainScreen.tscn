@@ -502,5 +502,6 @@ tile_set = SubResource("TileSet_iw6lq")
 
 [node name="buildDialog" type="AcceptDialog" parent="Node2D"]
 
+[connection signal="three_day_event" from="Node2D/Static UI/Panel/Stats/Clock" to="." method="_on_clock_three_day_event"]
 [connection signal="timeout" from="Node2D/Static UI/Panel/Stats/Clock/DayTimer" to="." method="_on_timer_timeout"]
 [connection signal="pressed" from="Node2D/Button" to="Node2D/board" method="_on_button_pressed"]

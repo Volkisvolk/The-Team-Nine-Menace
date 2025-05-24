@@ -4,7 +4,7 @@ extends Node2D
 @onready var day_label: Label = $DateLabel
 @onready var update_timer: Timer = $UpdateTimer
 @onready var day_timer: Timer = $DayTimer
-
+signal three_day_event
 var time_passed := 0.0
 var current_day := 1
 
@@ -27,6 +27,8 @@ func _on_update_timer_tick():
 
 func _on_day_timer_timeout():
 	current_day += 1
+	if current_day % 3 == 0:
+		emit_signal("three_day_event")
 	time_passed = 0.0  # resette sicherheitshalber
 	_update_ui()
 

@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://by2kha40052qq" path="res://assets/images/org.png" id="2_2rktw"]
 [ext_resource type="Script" uid="uid://cx6i4m6ov35i5" path="res://screens/buildingScript.gd" id="2_iw6lq"]
 [ext_resource type="Texture2D" uid="uid://d14l3782cqok3" path="res://assets/images/food.png" id="3_b1vw7"]
-[ext_resource type="Script" path="res://scripts/clock.gd" id="4_kjt3h"]
+[ext_resource type="Script" uid="uid://dq783r0q8ufjm" path="res://scripts/clock.gd" id="4_kjt3h"]
 [ext_resource type="Texture2D" uid="uid://ynkaac8qwohs" path="res://assets/images/chem.png" id="4_n5buc"]
 [ext_resource type="Texture2D" uid="uid://dvoqvik8b3qrv" path="res://assets/images/Analogue_clock_face.svg" id="4_yskxe"]
 [ext_resource type="Texture2D" uid="uid://dash8mwappmbg" path="res://assets/images/drug.png" id="5_36ifp"]
@@ -1664,9 +1664,3 @@ layout_mode = 2
 [node name="Timer" type="Timer" parent="."]
 wait_time = 10.0
 autostart = true
-
-[connection signal="timeout" from="Node2D/Static UI/Panel/Stats/Clock/DayTimer" to="." method="_on_timer_timeout"]
-[connection signal="pressed" from="Node2D/Button" to="Node2D/board" method="_on_button_pressed"]
-[connection signal="confirmed" from="Node2D/buildDialog" to="Node2D/board" method="_on_build_dialog_confirmed"]
-[connection signal="pressed" from="Node2D/buildInfoDialog/VBoxContainer/upgradeButton" to="Node2D/board" method="_on_upgrade_button_pressed"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

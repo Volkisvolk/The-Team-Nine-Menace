@@ -1664,3 +1664,7 @@ layout_mode = 2
 [node name="Timer" type="Timer" parent="."]
 wait_time = 10.0
 autostart = true
+
+[connection signal="pressed" from="Node2D/Button" to="Node2D/board" method="_on_button_pressed"]
+[connection signal="confirmed" from="Node2D/buildDialog" to="Node2D/board" method="_on_build_dialog_confirmed"]
+[connection signal="pressed" from="Node2D/buildInfoDialog/VBoxContainer/upgradeButton" to="Node2D/board" method="_on_upgrade_button_pressed"]

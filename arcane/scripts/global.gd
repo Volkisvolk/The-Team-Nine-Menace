@@ -1,5 +1,5 @@
 extends Node
-var gold : int
+@export var gold : int
 var organic : int
 var food : int
 var chemical : int
@@ -9,7 +9,8 @@ var underworld_people : int
 var mood_overworld : int
 var mood_underworld : int
 var daycounter: int
-
+var startLevel :int
+var startUpgradeCost :int
 
 # Buildings in Overworld: Farm, Butcher, Overworld City Hall, Apartments, Hospital
 
@@ -25,11 +26,25 @@ var buildable_tiles := {
 			
 		],
 		"built_tiles": [],
-		"levels": {}
+		"levels": { },
+		"upgradeCosts":  {},
+		},
+		"Hospital": {
+		"centers": [
+			Vector2i(-10,10),
+			Vector2i(-4,6),
+			Vector2i(-4,2)
+			
+		],
+		"built_tiles": [],
+		"levels": { },
+		"upgradeCosts":  [],
+		}
 	}
-}
 
 func _ready() -> void:
+	startLevel = 5
+	startUpgradeCost = 1
 	gold = 100
 	organic = 0
 	food = 50
@@ -112,9 +127,15 @@ func organic_tick():
 	pass
 	
 func chemical_tick():
+	
 	pass
 
 
 func _on_clock_three_day_event() -> void:
 	print("Hello 3 day old World")
+	pass # Replace with function body.
+
+
+func _on_board_upgrade_building(building_type, level) -> void:
+	#gold -= upgradeArr[level]
 	pass # Replace with function body.

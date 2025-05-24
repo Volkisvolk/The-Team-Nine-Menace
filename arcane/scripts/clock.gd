@@ -34,4 +34,4 @@ func _on_day_timer_timeout():
 
 func _update_ui():
 	day_hand.rotation_degrees = time_passed * 6.0 
-	day_label.text = "Tag %d" % current_day
+	day_label.text = "Day %d" % current_day

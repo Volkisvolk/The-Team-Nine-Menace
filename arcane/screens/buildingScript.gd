@@ -7,22 +7,14 @@ extends Node
 @onready var buildInfoDialog: AcceptDialog = $"../buildInfoDialog"
 @onready var levelLabel: Label = $"../buildInfoDialog/VBoxContainer/levelLabel"
 @onready var camera: Camera2D = $"../Camera2D"
+@onready var upgradeCostLabel: Label = $"../buildInfoDialog/VBoxContainer/upgradeCost"
+@onready var rootNode: Node2D = $"../.."
 
 var selected_building_type: String = ""
 var worldChangeBool = true
 var clickedTile: Vector2i
 
-var buildable_tiles := {
-	"Apartment": {
-		"centers": [
-			Vector2i(-4,10),
-			Vector2i(-4,6),
-			Vector2i(-4,2)
-		],
-		"built_tiles": [],
-		"levels": {}
-	}
-}
+
 
 func _ready():
 	var path = "Node2D/board/floorLayer"
@@ -44,8 +36,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		clickedTile = floorLayer.local_to_map(floorLayer.get_local_mouse_position())
 		print("Geklicktes Tile: ", clickedTile)
 
-		for gebaeude_typ in buildable_tiles.keys():
-			var data = buildable_tiles[gebaeude_typ]
+		for gebaeude_typ in rootNode.buildable_tiles.keys():
+			var data = rootNode.buildable_tiles[gebaeude_typ]
 
 			# Suche das zugehörige Zentrum
 			for center in data["centers"]:
@@ -75,8 +67,8 @@ func open_build_dialog(center: Vector2i, gebaeude_typ: String) -> void:
 
 
 func _on_build_dialog_confirmed():
-	if selected_building_type in buildable_tiles:
-		var data = buildable_tiles[selected_building_type]
+	if selected_building_type in rootNode.buildable_tiles:
+		var data = rootNode.buildable_tiles[selected_building_type]
 		var area = get_3x3_area(clickedTile)
 
 		var area_is_free := true
@@ -97,17 +89,18 @@ func _on_build_dialog_confirmed():
 		print("Unbekannter Gebäudetyp:", selected_building_type)
 
 func show_build_info(gebaeude_typ: String, tile: Vector2i) -> void:
-	if gebaeude_typ in buildable_tiles:
-		var data = buildable_tiles[gebaeude_typ]
+	if gebaeude_typ in rootNode.buildable_tiles:
+		var data = rootNode.buildable_tiles[gebaeude_typ]
 		var level = data["levels"].get(tile, 1)
 		levelLabel.text = "Level: " + str(level)
+		
 		buildInfoDialog.popup_centered()
 	else:
 		print("Fehler: Gebäudetyp nicht bekannt für Info-Popup:", gebaeude_typ)
 
 func _on_upgrade_button_pressed():
-	if selected_building_type in buildable_tiles:
-		var data = buildable_tiles[selected_building_type]
+	if selected_building_type in rootNode.buildable_tiles:
+		var data = rootNode.buildable_tiles[selected_building_type]
 		if clickedTile in data["levels"]:
 			data["levels"][clickedTile] += 1
 			levelLabel.text = "Level: " + str(data["levels"][clickedTile])

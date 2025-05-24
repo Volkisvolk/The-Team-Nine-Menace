@@ -16,6 +16,19 @@ var mood_underworld : int
 # Buildings in Underworld: Mine, Underground Lab, Underworld City Hall, Huts, Sickbay, Dump
 
 
+var buildable_tiles := {
+	"Apartment": {
+		"centers": [
+			Vector2i(-4,10),
+			Vector2i(-4,6),
+			Vector2i(-4,2)
+			
+		],
+		"built_tiles": [],
+		"levels": {}
+	}
+}
+
 func _ready() -> void:
 	gold = 100
 	organic = 0

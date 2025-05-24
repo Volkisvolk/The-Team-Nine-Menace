@@ -1,13 +1,20 @@
 extends Node
-var gold
-var organic
-var food
-var chemical
-var drug
-var overworld_people
-var underworld_people
-var mood_overworld
-var mood_underworld
+var gold : int
+var organic : int
+var food : int
+var chemical : int
+var drug : int
+var overworld_people : int
+var underworld_people : int
+var mood_overworld : int
+var mood_underworld : int
+
+
+
+# Buildings in Overworld: Farm, Butcher, Overworld City Hall, Apartments, Hospital
+
+# Buildings in Underworld: Mine, Underground Lab, Underworld City Hall, Huts, Sickbay, Dump
+
 
 func _ready() -> void:
 	gold = 100
@@ -72,3 +79,16 @@ func check_mood():
 		mood_overworld += 5
 	print(mood_overworld)
 	print(mood_underworld)
+
+
+func food_tick():
+	pass
+	
+func drug_tick():
+	pass
+	
+func organic_tick():
+	pass
+	
+func chemical_tick():
+	pass

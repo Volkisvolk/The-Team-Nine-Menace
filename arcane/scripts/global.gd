@@ -125,15 +125,13 @@ func _on_clock_three_day_event() -> void:
 	while card2 == card1:
 		card2 = card_pool.pick_random()
 
-	var ui = $"Node2D/CardEventUI"
-	ui.get_node("Card1lbl").text = card1.description
-	ui.get_node("Card2lbl").text = card2.description
-	ui.get_node("Card1btn").text = card1.name
-	ui.get_node("Card2btn").text = card2.name
+	var ui = $Node2D/Camera2D/CardEventUI
+	ui.get_node("Card1btn").get_node("Card1lbl").text = card1.description
+	ui.get_node("Card2btn").get_node("Card2lbl").text = card2.description
+	ui.get_node("Card1btn").get_node("Card1Titel").text = card1.name
+	ui.get_node("Card2btn").get_node("Card2Titel").text = card2.name
 
-	# Entferne vorherige Verbindungen (nur nötig, wenn mehrfach geöffnet wird)
-#	ui.get_node("Card1btn").pressed.disconnect_all()
-#	ui.get_node("Card2btn").pressed.disconnect_all()
+
 
 	ui.get_node("Card1btn").pressed.connect(func():
 		card1.effect.call()
@@ -156,7 +154,7 @@ func resume_timers():
 	$"Node2D/Static UI/Panel/Stats/Clock/DayTimer".paused = false
 	$"Node2D/Static UI/Panel/Stats/Clock/UpdateTimer".paused = false
 
-
+#TODO vlt noch Grafik oder so einfügen 
 var card_pool = [
 	{
 	"name": "Krankheitswelle",

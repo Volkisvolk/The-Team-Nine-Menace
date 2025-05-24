@@ -28,12 +28,6 @@ var buildable_tiles := {
 		],
 		"build": false
 	},
-	"jäger": {
-		"positions": [
-			Vector2i(-3,11), Vector2i(-3,10), Vector2i(-3,9)
-		],
-		"build": false
-	}
 }
 
 

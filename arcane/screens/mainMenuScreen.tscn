@@ -1,3 +1,4 @@
 [gd_scene format=3 uid="uid://cjr8bmbhyaoyo"]
 
 [node name="mainMenuScreen" type="Node2D"]
+visible = false

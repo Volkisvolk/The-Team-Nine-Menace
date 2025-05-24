@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Arcane"
-run/main_scene="uid://cjr8bmbhyaoyo"
+run/main_scene="uid://c2l8upswfsi82"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 

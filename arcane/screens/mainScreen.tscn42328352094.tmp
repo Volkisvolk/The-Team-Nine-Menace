@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://c2l8upswfsi82"]
+[gd_scene load_steps=20 format=4 uid="uid://c2l8upswfsi82"]
 
 [ext_resource type="Script" uid="uid://nhjucnigdqjd" path="res://scripts/global.gd" id="1_gq31x"]
 [ext_resource type="Texture2D" uid="uid://bflg2yef1v4n4" path="res://assets/isometric tileset/spritesheet.png" id="1_xw2hw"]
@@ -13,62 +13,6 @@
 [ext_resource type="Texture2D" uid="uid://y2w1ei2a40l4" path="res://assets/images/colorscale.png" id="5_e1j5o"]
 [ext_resource type="Texture2D" uid="uid://i71ddl7nad8m" path="res://assets/images/ClockHand.png" id="5_kjt3h"]
 [ext_resource type="Texture2D" uid="uid://mwd831ya4x73" path="res://icon.svg" id="11_a6iw5"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e1j5o"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e6v0d"]
-
-[sub_resource type="Animation" id="Animation_e1j5o"]
-resource_name = "slide_left"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MoodCover:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(257, 0), Vector2(0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_e6v0d"]
-resource_name = "slide_right"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MoodCover:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(256, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_2a4k5"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MoodCover:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(257, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_pbnt5"]
-_data = {
-&"RESET": SubResource("Animation_2a4k5"),
-&"slide_left": SubResource("Animation_e1j5o"),
-&"slide_right": SubResource("Animation_e6v0d")
-}
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gq31x"]
 texture = ExtResource("1_xw2hw")
@@ -1579,58 +1523,35 @@ grow_horizontal = 2
 grow_vertical = 0
 
 [node name="Stats" type="HBoxContainer" parent="Node2D/Static UI/Panel"]
-clip_contents = true
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -960.0
-offset_top = -54.0
-offset_right = 960.0
-offset_bottom = 54.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 10
-alignment = 1
+layout_mode = 0
+offset_right = 1855.0
+offset_bottom = 108.0
+theme_override_constants/separation = 600
 
 [node name="statsOver" type="HBoxContainer" parent="Node2D/Static UI/Panel/Stats"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 6
+theme_override_constants/separation = 100
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Node2D/Static UI/Panel/Stats/statsOver"]
-layout_mode = 2
-
-[node name="organictxt" type="Label" parent="Node2D/Static UI/Panel/Stats/statsOver/HBoxContainer"]
-custom_minimum_size = Vector2(80, 0)
+[node name="organictxt" type="Label" parent="Node2D/Static UI/Panel/Stats/statsOver"]
 layout_mode = 2
 text = "000"
 
-[node name="org" type="Sprite2D" parent="Node2D/Static UI/Panel/Stats/statsOver/HBoxContainer/organictxt"]
+[node name="org" type="Sprite2D" parent="Node2D/Static UI/Panel/Stats/statsOver/organictxt"]
 position = Vector2(-17, 10)
 scale = Vector2(0.1025, 0.1025)
 texture = ExtResource("2_2rktw")
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="Node2D/Static UI/Panel/Stats/statsOver"]
-layout_mode = 2
-
-[node name="foodtxt" type="Label" parent="Node2D/Static UI/Panel/Stats/statsOver/HBoxContainer2"]
-custom_minimum_size = Vector2(80, 0)
+[node name="foodtxt" type="Label" parent="Node2D/Static UI/Panel/Stats/statsOver"]
 layout_mode = 2
 text = "111"
 
-[node name="food" type="Sprite2D" parent="Node2D/Static UI/Panel/Stats/statsOver/HBoxContainer2/foodtxt"]
+[node name="food" type="Sprite2D" parent="Node2D/Static UI/Panel/Stats/statsOver/foodtxt"]
 position = Vector2(-17, 10)
 scale = Vector2(0.1025, 0.1025)
 texture = ExtResource("3_b1vw7")
 
 [node name="Button" type="Button" parent="Node2D/Static UI/Panel/Stats"]
 layout_mode = 2
-size_flags_horizontal = 6
-theme_override_styles/focus = SubResource("StyleBoxFlat_e1j5o")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_e6v0d")
 text = "Over/Under"
 script = ExtResource("2_0jdq0")
 
@@ -1645,7 +1566,6 @@ layout_mode = 0
 offset_top = 8.0
 offset_right = 5.0
 offset_bottom = 102.0
-color = Color(0.000113828, 0.000113828, 0.000113828, 1)
 
 [node name="UnderworldPointer" type="ColorRect" parent="Node2D/Static UI/Panel/Stats/Button"]
 layout_mode = 0
@@ -1654,40 +1574,11 @@ offset_top = 8.0
 offset_right = 513.0
 offset_bottom = 102.0
 
-[node name="MoodCover" type="ColorRect" parent="Node2D/Static UI/Panel/Stats/Button"]
-layout_mode = 0
-offset_left = 257.0
-offset_right = 513.0
-offset_bottom = 108.0
-mouse_filter = 2
-color = Color(0.303, 0.303, 0.303, 0.95)
-
-[node name="CoverLabel" type="Label" parent="Node2D/Static UI/Panel/Stats/Button/MoodCover"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -71.0
-offset_top = -41.0
-offset_right = 71.0
-offset_bottom = 41.0
-grow_horizontal = 2
-grow_vertical = 2
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/Static UI/Panel/Stats/Button"]
-libraries = {
-&"": SubResource("AnimationLibrary_pbnt5")
-}
-
 [node name="statsUnder" type="HBoxContainer" parent="Node2D/Static UI/Panel/Stats"]
 layout_mode = 2
+theme_override_constants/separation = 100
 
 [node name="chemic" type="Label" parent="Node2D/Static UI/Panel/Stats/statsUnder"]
-custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 text = "222"
 
@@ -1697,7 +1588,6 @@ scale = Vector2(0.1025, 0.1025)
 texture = ExtResource("4_n5buc")
 
 [node name="drugs" type="Label" parent="Node2D/Static UI/Panel/Stats/statsUnder"]
-custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 text = "333"
 

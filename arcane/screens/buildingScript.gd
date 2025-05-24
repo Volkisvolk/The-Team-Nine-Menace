@@ -6,14 +6,12 @@ extends Node
 @onready var buildDialog: AcceptDialog = $"../buildDialog"
 @onready var buildInfoDialog: AcceptDialog = $"../buildInfoDialog"
 @onready var levelLabel: Label = $"../buildInfoDialog/VBoxContainer/levelLabel"
-@onready var camera: Camera2D = $"../Camera2D"
 @onready var upgradeCostLabel: Label = $"../buildInfoDialog/VBoxContainer/upgradeCost"
 @onready var rootNode: Node2D = $"../.."
 
 var selected_building_type: String = ""
 var clickedTile: Vector2i
 var current_center_tile: Vector2i  # Zentrum des aktiven Gebäudes für Info & Upgrade
-var worldChangeBool = true
 
 
 func _ready():
@@ -111,12 +109,3 @@ func _on_upgrade_button_pressed():
 			levelLabel.text = "Level: " + str(data["levels"][current_center_tile])
 		else:
 			print("Kein Level-Eintrag für:", current_center_tile)
-
-
-func _on_button_pressed() -> void:
-	if worldChangeBool:
-		camera.position = Vector2(0,972)
-		worldChangeBool = false
-	else:
-		camera.position = Vector2(0.0,0.0)
-		worldChangeBool = true

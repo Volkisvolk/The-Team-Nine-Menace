@@ -37,7 +37,7 @@ func _ready() -> void:
 	drug = 50
 	overworld_people = 10
 	underworld_people = 10
-	mood_overworld = 50 # mood from 0-100, 100 is shit, 0 is great
+	mood_overworld = 80 # mood from 0-100, 100 is shit, 0 is great
 	mood_underworld = 50
 	updateUI()
 
@@ -117,8 +117,8 @@ func chemical_tick():
 
 func _on_clock_three_day_event() -> void:
 	# Timer pausieren
-	$"Node2D/Static UI/Panel/Stats/Clock/DayTimer".paused = true
-	$"Node2D/Static UI/Panel/Stats/Clock/UpdateTimer".paused = true
+	$Node2D/Camera2D/Clock/DayTimer.paused = true
+	$Node2D/Camera2D/Clock/UpdateTimer.paused = true
 
 	var card1 = card_pool.pick_random()
 	var card2 = card_pool.pick_random()

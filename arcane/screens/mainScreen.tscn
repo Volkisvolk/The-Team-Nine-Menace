@@ -1649,7 +1649,7 @@ theme = SubResource("Theme_b1vw7")
 offset_left = 8.0
 offset_top = 8.0
 offset_right = 292.0
-offset_bottom = 259.0
+offset_bottom = 251.0
 
 [node name="levelLabel" type="Label" parent="Node2D/buildInfoDialog/VBoxContainer"]
 layout_mode = 2
@@ -1661,10 +1661,54 @@ text = "Upgrade"
 [node name="upgradeCost" type="Label" parent="Node2D/buildInfoDialog/VBoxContainer"]
 layout_mode = 2
 
+[node name="CardEventUI" type="Control" parent="Node2D"]
+visible = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -497.5
+offset_top = -211.0
+offset_right = 497.5
+offset_bottom = 211.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Card1btn" type="Button" parent="Node2D/CardEventUI"]
+layout_mode = 0
+offset_left = 355.5
+offset_top = 153.0
+offset_right = 438.5
+offset_bottom = 268.0
+
+[node name="Card1lbl" type="Label" parent="Node2D/CardEventUI"]
+layout_mode = 0
+offset_left = 355.5
+offset_top = 210.0
+offset_right = 439.5
+offset_bottom = 268.0
+
+[node name="Card2btn" type="Button" parent="Node2D/CardEventUI"]
+layout_mode = 0
+offset_left = 534.5
+offset_top = 154.0
+offset_right = 617.5
+offset_bottom = 269.0
+
+[node name="Card2lbl" type="Label" parent="Node2D/CardEventUI"]
+layout_mode = 0
+offset_left = 534.5
+offset_top = 211.0
+offset_right = 618.5
+offset_bottom = 269.0
+
 [node name="Timer" type="Timer" parent="."]
 wait_time = 10.0
 autostart = true
 
+[connection signal="three_day_event" from="Node2D/Static UI/Panel/Stats/Clock" to="." method="_on_clock_three_day_event"]
 [connection signal="pressed" from="Node2D/Button" to="Node2D/board" method="_on_button_pressed"]
 [connection signal="confirmed" from="Node2D/buildDialog" to="Node2D/board" method="_on_build_dialog_confirmed"]
 [connection signal="pressed" from="Node2D/buildInfoDialog/VBoxContainer/upgradeButton" to="Node2D/board" method="_on_upgrade_button_pressed"]

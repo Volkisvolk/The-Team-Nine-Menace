@@ -2,6 +2,9 @@ extends Node
 
 @onready var tileMapLayer: TileMapLayer = $tileMapLayer
 @onready var buildDialog: AcceptDialog = $buildDialog
+@onready var camera: Camera2D = $"../Camera2D"
+var worldChangeBool = true # true equals Overworld
+
 var clickedTile
 
 func _ready():
@@ -35,7 +38,22 @@ func _unhandled_input(event: InputEvent) -> void:
 		print(clickedTile)
 		if clickedTile in buildable_tiles:
 			open_build_dialog(clickedTile)
+			
+			
+	
 
 func open_build_dialog(tile: Vector2i) -> void:
 	buildDialog.dialog_text = "Auf Feld " + str(clickedTile) + " bauen?"
 	buildDialog.popup_centered()
+
+
+func _on_button_pressed() -> void:
+	if worldChangeBool == true:
+		camera.position = Vector2(0,1000)
+		worldChangeBool = false
+		return
+	if worldChangeBool == false:
+		camera.position = Vector2(0.0,0.0)
+		worldChangeBool = true
+		return
+	pass # Replace with function body.

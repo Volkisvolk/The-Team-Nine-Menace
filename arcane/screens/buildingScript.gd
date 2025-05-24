@@ -5,6 +5,9 @@ extends Node
 @onready var buildingLayer: TileMapLayer = $buildingLayer
 @onready var buildDialog: AcceptDialog = $"../buildDialog"
 @onready var camera: Camera2D = $"../Camera2D"
+@onready var buildInfoDialog: AcceptDialog = $"../buildInfoDialog"
+@onready var levelLabel: Label = $"../buildInfoDialog/VBoxContainer/levelLabel"
+
 
 var selected_building_type: String = ""
 var worldChangeBool = true # true equals Overworld
@@ -18,7 +21,8 @@ var buildable_tiles := {
 			Vector2i(-4,11), Vector2i(-4,10), Vector2i(-4,9),
 			Vector2i(-3,11), Vector2i(-3,10), Vector2i(-3,9)
 		],
-		"build": false
+		"build": false,
+		"level": 0
 	},
 	"haus": {
 		"positions": [
@@ -26,7 +30,8 @@ var buildable_tiles := {
 			Vector2i(-3,6), Vector2i(-4,6), Vector2i(-5,6),
 			Vector2i(-3,7), Vector2i(-4,7), Vector2i(-5,7)
 		],
-		"build": false
+		"build": false,
+		"level": 0
 	},
 }
 
@@ -47,8 +52,12 @@ func _unhandled_input(event: InputEvent) -> void:
 		for gebaeude_typ in buildable_tiles.keys():
 			var data = buildable_tiles[gebaeude_typ]
 			if clickedTile in data["positions"]:
-				open_build_dialog(clickedTile, gebaeude_typ)
+				if data["build"] == false:
+					open_build_dialog(clickedTile, gebaeude_typ)
+				else:
+					show_build_info(gebaeude_typ)
 				break
+
 
 
 func open_build_dialog(tile: Vector2i, gebaeude_typ: String) -> void:
@@ -73,13 +82,16 @@ func _on_build_dialog_confirmed():
 
 		if data.has("build") and data["build"] == false:
 			for tile_pos in data["positions"]:
-				buildingLayer.set_cell(tile_pos, 0, Vector2i(6, 6))  # Beispielkoordinate
-			buildable_tiles[selected_building_type]["build"] = true  # markieren als gebaut
+				buildingLayer.set_cell(tile_pos, 0, Vector2i(6, 6))  # Beispiel
+			buildable_tiles[selected_building_type]["build"] = true
+			buildable_tiles[selected_building_type]["level"] = 1
 			print(selected_building_type, " wurde gebaut.")
+			show_build_info(selected_building_type)  # ⬅️ Level anzeigen!
 		else:
 			print("Bauen nicht erlaubt für:", selected_building_type)
 	else:
 		print("Unbekannter Gebäudetyp:", selected_building_type)
+
 
 
 func _on_button_pressed() -> void:
@@ -96,3 +108,21 @@ func _on_button_pressed() -> void:
 			await get_tree().create_timer(0.0000000000000001).timeout
 			worldChangeBool = true
 		return
+
+
+func _on_upgrade_button_pressed():
+	print("Upgrade gedrückt für:", selected_building_type)
+	# Beispiel: Level erhöhen
+	if selected_building_type in buildable_tiles:
+		buildable_tiles[selected_building_type]["level"] += 1
+		levelLabel.text = "Level: " + str(buildable_tiles[selected_building_type]["level"])
+	pass # Replace with function body.
+	
+	
+func show_build_info(gebaeude_typ: String) -> void:
+	if gebaeude_typ in buildable_tiles:
+		var level = buildable_tiles[gebaeude_typ].get("level", 0)
+		levelLabel.text = "Level: " + str(level)
+		buildInfoDialog.popup_centered()
+	else:
+		print("Fehler: Gebäudetyp nicht bekannt für Info-Popup:", gebaeude_typ)

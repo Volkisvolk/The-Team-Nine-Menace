@@ -20,7 +20,7 @@ func _ready():
 
 # Hier Buildable Flächen geben, am besten sagen wir jewals arrays für gebäude und dann gebe nwir die gebäude da rein. Frag Volki
 
-var buildable_tiles: Array[Vector2i] = [
+var buildingApartment: Array[Vector2i] = [
 	Vector2i(-5,11),
 	Vector2i(-5,10),
 	Vector2i(-5,9),
@@ -37,7 +37,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		clickedTile = floorLayer.local_to_map(floorLayer.get_local_mouse_position())
 		print(clickedTile)
-		if clickedTile in buildable_tiles:
+		if clickedTile in buildingApartment:
 			open_build_dialog(clickedTile)
 			
 			

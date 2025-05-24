@@ -1,12 +1,15 @@
-[gd_scene load_steps=10 format=4 uid="uid://c2l8upswfsi82"]
+[gd_scene load_steps=13 format=4 uid="uid://c2l8upswfsi82"]
 
 [ext_resource type="Script" uid="uid://nhjucnigdqjd" path="res://scripts/global.gd" id="1_gq31x"]
 [ext_resource type="Texture2D" uid="uid://bflg2yef1v4n4" path="res://assets/isometric tileset/spritesheet.png" id="1_xw2hw"]
 [ext_resource type="Texture2D" uid="uid://by2kha40052qq" path="res://assets/images/org.png" id="2_2rktw"]
 [ext_resource type="Script" uid="uid://cx6i4m6ov35i5" path="res://screens/buildingScript.gd" id="2_iw6lq"]
 [ext_resource type="Texture2D" uid="uid://d14l3782cqok3" path="res://assets/images/food.png" id="3_b1vw7"]
+[ext_resource type="Script" uid="uid://dq783r0q8ufjm" path="res://scripts/clock.gd" id="4_kjt3h"]
 [ext_resource type="Texture2D" uid="uid://ynkaac8qwohs" path="res://assets/images/chem.png" id="4_n5buc"]
+[ext_resource type="Texture2D" uid="uid://dvoqvik8b3qrv" path="res://assets/images/Analogue_clock_face.svg" id="4_yskxe"]
 [ext_resource type="Texture2D" uid="uid://dash8mwappmbg" path="res://assets/images/drug.png" id="5_36ifp"]
+[ext_resource type="Texture2D" uid="uid://i71ddl7nad8m" path="res://assets/images/ClockHand.png" id="5_kjt3h"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gq31x"]
 texture = ExtResource("1_xw2hw")
@@ -415,6 +418,42 @@ position = Vector2(-17, 10)
 scale = Vector2(0.1025, 0.1025)
 texture = ExtResource("3_b1vw7")
 
+[node name="Clock" type="Node2D" parent="Node2D/Static UI/Panel/Stats"]
+position = Vector2(908, 51)
+script = ExtResource("4_kjt3h")
+
+[node name="ClockFace" type="Sprite2D" parent="Node2D/Static UI/Panel/Stats/Clock"]
+position = Vector2(1.78814e-07, -9)
+scale = Vector2(0.41, 0.41)
+texture = ExtResource("4_yskxe")
+
+[node name="ClockHand" type="Sprite2D" parent="Node2D/Static UI/Panel/Stats/Clock"]
+position = Vector2(0, -10)
+scale = Vector2(0.0277778, 0.0456639)
+texture = ExtResource("5_kjt3h")
+centered = false
+offset = Vector2(-20, -700)
+
+[node name="UpdateTimer" type="Timer" parent="Node2D/Static UI/Panel/Stats/Clock"]
+wait_time = 60.0
+autostart = true
+
+[node name="DayTimer" type="Timer" parent="Node2D/Static UI/Panel/Stats/Clock"]
+
+[node name="DateLabel" type="Label" parent="Node2D/Static UI/Panel/Stats/Clock"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = 32.0
+offset_right = 20.0
+offset_bottom = 55.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Day:"
+
 [node name="statsUnder" type="HBoxContainer" parent="Node2D/Static UI/Panel/Stats"]
 layout_mode = 2
 theme_override_constants/separation = 100
@@ -463,9 +502,5 @@ tile_set = SubResource("TileSet_iw6lq")
 
 [node name="buildDialog" type="AcceptDialog" parent="Node2D"]
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 10.0
-autostart = true
-
+[connection signal="timeout" from="Node2D/Static UI/Panel/Stats/Clock/DayTimer" to="." method="_on_timer_timeout"]
 [connection signal="pressed" from="Node2D/Button" to="Node2D/board" method="_on_button_pressed"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

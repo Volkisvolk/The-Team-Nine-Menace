@@ -57,7 +57,7 @@ func open_build_dialog(tile: Vector2i, gebaeude_typ: String) -> void:
 
 		if data.has("build") and data["build"] == false:
 			selected_building_type = gebaeude_typ
-			buildDialog.dialog_text = "Auf Feld " + str(tile) + " ein " + gebaeude_typ.capitalize() + " bauen?"
+			buildDialog.dialog_text = "Auf Feld ein " + gebaeude_typ.capitalize() + " bauen?"
 			buildDialog.popup_centered()
 		else:
 			print("Gebäude wurde bereits gebaut:", gebaeude_typ)

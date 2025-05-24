@@ -51,16 +51,15 @@ func open_build_dialog(tile: Vector2i) -> void:
 func _on_button_pressed() -> void:
 	if worldChangeBool == true:
 		for i in range(20):
-			camera.position = Vector2(0,i*50)
+			camera.position = Vector2(0,972)
 			worldChangeBool = false
 			await get_tree().create_timer(0.0000000000000001).timeout
 		return
 	if worldChangeBool == false:
 		for i in range(20):
 			var count = 1000 -i *50
-			camera.position = Vector2(0.0,count)
+			camera.position = Vector2(0.0,0.0)
 			await get_tree().create_timer(0.0000000000000001).timeout
 			worldChangeBool = true
 		return
-		
 	pass # Replace with function body.

@@ -26,6 +26,7 @@ func _ready() -> void:
 	underworld_people = 10
 	mood_overworld = 50 # mood from 0-100, 100 is shit, 0 is great
 	mood_underworld = 50
+	updateUI()
 
 func add_gold(val):
 	gold += val
@@ -53,6 +54,7 @@ func add_underworld_people(val):
 func _on_timer_timeout() -> void:
 	print("_on_timer_timeout")
 	check_mood()
+	updateUI()
 	pass # Replace with function body.
 	
 	
@@ -80,7 +82,13 @@ func check_mood():
 	print(mood_overworld)
 	print(mood_underworld)
 
-
+func updateUI():
+	$"Node2D/Static UI/Panel/Stats/statsOver/organictxt".text= str(organic)
+	$"Node2D/Static UI/Panel/Stats/statsOver/foodtxt".text=str(food)
+	$"Node2D/Static UI/Panel/Stats/statsUnder/chemic".text=str(chemical)
+	$"Node2D/Static UI/Panel/Stats/statsUnder/drugs".text=str(drug)
+	pass
+	
 func food_tick():
 	pass
 	

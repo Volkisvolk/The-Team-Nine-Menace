@@ -11,9 +11,9 @@ extends Node
 @onready var rootNode: Node2D = $"../.."
 
 var selected_building_type: String = ""
-var worldChangeBool = true
 var clickedTile: Vector2i
-
+var current_center_tile: Vector2i  # Zentrum des aktiven Gebäudes für Info & Upgrade
+var worldChangeBool = true
 
 
 func _ready():
@@ -31,6 +31,7 @@ func get_3x3_area(center: Vector2i) -> Array[Vector2i]:
 			area.append(center + Vector2i(dx, dy))
 	return area
 
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		clickedTile = floorLayer.local_to_map(floorLayer.get_local_mouse_position())
@@ -39,7 +40,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		for gebaeude_typ in rootNode.buildable_tiles.keys():
 			var data = rootNode.buildable_tiles[gebaeude_typ]
 
-			# Suche das zugehörige Zentrum
 			for center in data["centers"]:
 				var area = get_3x3_area(center)
 				if clickedTile in area:
@@ -57,11 +57,11 @@ func _unhandled_input(event: InputEvent) -> void:
 							open_build_dialog(center, gebaeude_typ)
 						else:
 							print("Ein Teil des 3x3-Felds ist schon bebaut.")
-					return  # sobald ein Zentrum gefunden wurde, abbrechen
+					return
 
 
 func open_build_dialog(center: Vector2i, gebaeude_typ: String) -> void:
-	clickedTile = center  # Zentrum merken
+	clickedTile = center
 	buildDialog.dialog_text = "Auf 3x3-Feld um " + str(center) + " ein " + gebaeude_typ.capitalize() + " bauen?"
 	buildDialog.popup_centered()
 
@@ -88,24 +88,30 @@ func _on_build_dialog_confirmed():
 	else:
 		print("Unbekannter Gebäudetyp:", selected_building_type)
 
+
 func show_build_info(gebaeude_typ: String, tile: Vector2i) -> void:
+	current_center_tile = tile  # Wichtig für Upgrade
+
 	if gebaeude_typ in rootNode.buildable_tiles:
 		var data = rootNode.buildable_tiles[gebaeude_typ]
 		var level = data["levels"].get(tile, 1)
 		levelLabel.text = "Level: " + str(level)
-		
+		# Optional: Upgrade-Kosten anzeigen
+		upgradeCostLabel.text = "Upgrade-Kosten: " + str(level * 10) + " Gold"
 		buildInfoDialog.popup_centered()
 	else:
 		print("Fehler: Gebäudetyp nicht bekannt für Info-Popup:", gebaeude_typ)
 
+
 func _on_upgrade_button_pressed():
 	if selected_building_type in rootNode.buildable_tiles:
 		var data = rootNode.buildable_tiles[selected_building_type]
-		if clickedTile in data["levels"]:
-			data["levels"][clickedTile] += 1
-			levelLabel.text = "Level: " + str(data["levels"][clickedTile])
+		if current_center_tile in data["levels"]:
+			data["levels"][current_center_tile] += 1
+			levelLabel.text = "Level: " + str(data["levels"][current_center_tile])
 		else:
-			print("Kein Level-Eintrag für:", clickedTile)
+			print("Kein Level-Eintrag für:", current_center_tile)
+
 
 func _on_button_pressed() -> void:
 	if worldChangeBool:
@@ -114,5 +120,3 @@ func _on_button_pressed() -> void:
 	else:
 		camera.position = Vector2(0.0,0.0)
 		worldChangeBool = true
-		return
-	pass # Replace with function body.

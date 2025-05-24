@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://cjr8bmbhyaoyo"]
+
+[node name="mainScreen" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(960, 536)
+
+[node name="Button" type="Button" parent="Camera2D"]
+offset_left = -8.0
+offset_top = 440.0
+offset_right = 412.0
+offset_bottom = 627.0
+text = "Hall"

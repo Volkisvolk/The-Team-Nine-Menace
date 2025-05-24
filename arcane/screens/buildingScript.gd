@@ -1,7 +1,7 @@
 extends Node
 
 @onready var tileMapLayer: TileMapLayer = $tileMapLayer
-@onready var buildDialog: AcceptDialog = $buildDialog
+@onready var buildDialog: AcceptDialog = $"../buildDialog"
 @onready var camera: Camera2D = $"../Camera2D"
 var worldChangeBool = true # true equals Overworld
 
@@ -34,7 +34,6 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		clickedTile = tileMapLayer.local_to_map(tileMapLayer.get_local_mouse_position())
-
 		print(clickedTile)
 		if clickedTile in buildable_tiles:
 			open_build_dialog(clickedTile)

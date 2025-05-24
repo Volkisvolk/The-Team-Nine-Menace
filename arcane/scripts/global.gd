@@ -8,7 +8,7 @@ var overworld_people : int
 var underworld_people : int
 var mood_overworld : int
 var mood_underworld : int
-
+var daycounter: int
 
 
 # Buildings in Overworld: Farm, Butcher, Overworld City Hall, Apartments, Hospital
@@ -113,3 +113,8 @@ func organic_tick():
 	
 func chemical_tick():
 	pass
+
+
+func _on_clock_three_day_event() -> void:
+	print("Hello 3 day old World")
+	pass # Replace with function body.

@@ -36,7 +36,7 @@ var buildable_tiles := {
 		],
 		"built_tiles": [],
 		"levels": { },
-		"upgradeCosts":  [10,20,50,200,500,1000],
+		"upgradeCosts":  [10,10,20,50,200,500,1000],
 		},
 	"Hut": {
 		"centers": [
@@ -47,7 +47,7 @@ var buildable_tiles := {
 		],
 		"built_tiles": [],
 		"levels": { },
-		"upgradeCosts":  [100,200,500,1000,2000],
+		"upgradeCosts":  [10,10,20,50,200,500,1000],
 		},
 	"Hospital": {
 		"centers": [
@@ -58,7 +58,7 @@ var buildable_tiles := {
 		],
 		"built_tiles": [],
 		"levels": { },
-		"upgradeCosts":  [100,200,500,1000,2000],
+		"upgradeCosts":  [10,10,20,50,200,500,1000],
 		},
 	"Sickbay": {
 		"centers": [
@@ -69,7 +69,7 @@ var buildable_tiles := {
 		],
 		"built_tiles": [],
 		"levels": { },
-		"upgradeCosts":  [100,200,500,1000,2000],
+		"upgradeCosts":  [10,10,20,50,200,500,1000],
 		},
 	"Farm": {
 		"centers": [
@@ -80,7 +80,7 @@ var buildable_tiles := {
 		],
 		"built_tiles": [],
 		"levels": { },
-		"upgradeCosts":  [100,200,500,1000,2000],
+		"upgradeCosts":  [10,10,20,50,200,500,1000],
 		},
 	"Butcher": {
 		"centers": [
@@ -91,7 +91,7 @@ var buildable_tiles := {
 		],
 		"built_tiles": [],
 		"levels": { },
-		"upgradeCosts":  [100,200,500,1000,2000],
+		"upgradeCosts":  [10,10,20,50,200,500,1000],
 		},
 	"Mine": {
 		"centers": [
@@ -102,7 +102,7 @@ var buildable_tiles := {
 		],
 		"built_tiles": [],
 		"levels": { },
-		"upgradeCosts":  [100,200,500,1000,2000],
+		"upgradeCosts":  [10,10,20,50,200,500,1000],
 		},
 	"Lab": {
 		"centers": [
@@ -113,7 +113,7 @@ var buildable_tiles := {
 		],
 		"built_tiles": [],
 		"levels": { },
-		"upgradeCosts":  [100,200,500,1000,2000],
+		"upgradeCosts":  [10,10,20,50,200,500,1000],
 		},
 	"Dump": {
 		"centers": [
@@ -124,7 +124,7 @@ var buildable_tiles := {
 		],
 		"built_tiles": [],
 		"levels": { },
-		"upgradeCosts":  [100,200,500,1000,2000],
+		"upgradeCosts":  [10,10,20,50,200,500,1000],
 		},
 	"Overworld": {
 		"centers": [
@@ -135,7 +135,7 @@ var buildable_tiles := {
 		],
 		"built_tiles": [],
 		"levels": { },
-		"upgradeCosts":  [100,200,500,1000,2000],
+		"upgradeCosts":  [10,10,20,50,200,500,1000],
 		},
 	"Underworld": {
 		"centers": [
@@ -146,7 +146,7 @@ var buildable_tiles := {
 		],
 		"built_tiles": [],
 		"levels": { },
-		"upgradeCosts":  [100,200,500,1000,2000],
+		"upgradeCosts":  [10,10,20,50,200,500,1000],
 		},
 	}
 
@@ -195,7 +195,10 @@ func add_overworld_people(val):
 func add_underworld_people(val):
 	if val * (-1) <= underworld_people:
 		underworld_people += val
-	
+		
+		
+func spend_gold (val):
+	add_gold(-val)
 
 # quasi wie update, nur nicht jeden frame
 func _on_timer_timeout() -> void:

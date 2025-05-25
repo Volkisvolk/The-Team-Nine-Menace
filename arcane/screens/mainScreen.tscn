@@ -14,62 +14,6 @@
 [ext_resource type="Texture2D" uid="uid://i71ddl7nad8m" path="res://assets/images/ClockHand.png" id="5_kjt3h"]
 [ext_resource type="Texture2D" uid="uid://mwd831ya4x73" path="res://icon.svg" id="11_a6iw5"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e1j5o"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e6v0d"]
-
-[sub_resource type="Animation" id="Animation_2a4k5"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MoodCover:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(257, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_e1j5o"]
-resource_name = "slide_left"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MoodCover:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(257, 0), Vector2(0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_e6v0d"]
-resource_name = "slide_right"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MoodCover:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(256, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_pbnt5"]
-_data = {
-&"RESET": SubResource("Animation_2a4k5"),
-&"slide_left": SubResource("Animation_e1j5o"),
-&"slide_right": SubResource("Animation_e6v0d")
-}
-
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gq31x"]
 texture = ExtResource("1_xw2hw")
 texture_region_size = Vector2i(32, 32)
@@ -414,6 +358,62 @@ tile_layout = 5
 tile_size = Vector2i(32, 16)
 navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_gq31x")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e1j5o"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e6v0d"]
+
+[sub_resource type="Animation" id="Animation_2a4k5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MoodCover:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(257, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_e1j5o"]
+resource_name = "slide_left"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MoodCover:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(257, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_e6v0d"]
+resource_name = "slide_right"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MoodCover:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(256, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pbnt5"]
+_data = {
+&"RESET": SubResource("Animation_2a4k5"),
+&"slide_left": SubResource("Animation_e1j5o"),
+&"slide_right": SubResource("Animation_e6v0d")
+}
 
 [sub_resource type="Image" id="Image_iw6lq"]
 data = {

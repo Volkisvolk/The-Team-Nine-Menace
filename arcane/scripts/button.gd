@@ -32,24 +32,24 @@ func _on_button_pressed() -> void:
 
 func update_mood_pointer():
 	var mood_range := 100.0
-	var bar_width = gradient_bar.size.x
-	var center = bar_width / 2.0
+	var bar_width = $GradientBar.get_rect().size.x
+	var bar_center_x = bar_width / 2.0
 
 	var mood: int = root.mood_overworld if worldChangeBool else root.mood_underworld
 	var ratio = clamp(mood / mood_range, 0.0, 1.0)
-	var offset = ratio * center
+	var offset = ratio * (bar_width / 2.0)
 
-	overworld_pointer.visible = worldChangeBool
-	underworld_pointer.visible = not worldChangeBool
-
-	if worldChangeBool:
-		overworld_pointer.position.x = center - offset - (overworld_pointer.size.x / 2.0)
-	else:
-		underworld_pointer.position.x = center + offset - (underworld_pointer.size.x / 2.0)
-
-	cover_label.text = "Underworld" if worldChangeBool else "Overworld"
+	$GradientBar/OverworldPointer.visible = worldChangeBool
+	$GradientBar/UnderworldPointer.visible = not worldChangeBool
 
 	if worldChangeBool:
-		animation_player.play("slide_right")
+		$GradientBar/OverworldPointer.position.x = bar_center_x - offset - ($GradientBar/OverworldPointer.size.x / 2.0)
 	else:
-		animation_player.play("slide_left")
+		$GradientBar/UnderworldPointer.position.x = bar_center_x + offset - ($GradientBar/UnderworldPointer.size.x / 2.0)
+
+	$MoodCover/CoverLabel.text = "Underworld" if worldChangeBool else "Overworld"
+
+	if worldChangeBool:
+		$AnimationPlayer.play("slide_right")
+	else:
+		$AnimationPlayer.play("slide_left")

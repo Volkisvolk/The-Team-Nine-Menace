@@ -245,6 +245,9 @@ func updateUI():
 	pass
 
 func calculate_population():
+	if overworld_people <= 0 || underworld_people <= 0:
+		get_tree().change_scene_to_file("res://screens/endScreen.tscn")
+	
 	if not buildable_tiles["Apartment"]["levels"].is_empty():
 		var new_people = 0
 		for elem in buildable_tiles["Apartment"]["levels"]:
@@ -396,6 +399,7 @@ func dump_tick():
 func calculate_gold():
 	gold += overworld_people + underworld_people
 	pass
+
 
 func _on_clock_three_day_event() -> void:
 	# Timer pausieren

@@ -40,9 +40,9 @@ var buildable_tiles := {
 		},
 	"Hut": {
 		"centers": [
-			Vector2i(-10,10),
-			Vector2i(-4,6),
-			Vector2i(-4,2)
+			Vector2i(60,60),
+			Vector2i(60,64),
+			Vector2i(60,68)
 			
 		],
 		"built_tiles": [],
@@ -52,8 +52,8 @@ var buildable_tiles := {
 	"Hospital": {
 		"centers": [
 			Vector2i(-10,10),
-			Vector2i(-4,6),
-			Vector2i(-4,2)
+			Vector2i(-10,6),
+			Vector2i(-10,2)
 			
 		],
 		"built_tiles": [],
@@ -62,9 +62,9 @@ var buildable_tiles := {
 		},
 	"Sickbay": {
 		"centers": [
-			Vector2i(-10,10),
-			Vector2i(-4,6),
-			Vector2i(-4,2)
+			Vector2i(64,60),
+			Vector2i(64,64),
+			Vector2i(64,68)
 			
 		],
 		"built_tiles": [],
@@ -73,9 +73,9 @@ var buildable_tiles := {
 		},
 	"Farm": {
 		"centers": [
-			Vector2i(-10,10),
-			Vector2i(-4,6),
-			Vector2i(-4,2)
+			Vector2i(-2,10),
+			Vector2i(-2,6),
+			Vector2i(-2,2)
 			
 		],
 		"built_tiles": [],
@@ -155,14 +155,14 @@ func _ready() -> void:
 	startUpgradeCost = 1
 	gold = 100
 	organic = 0
-	food = 50
+	food = 5
 	chemical = 0
-	drug = 50
+	drug = 5
 	overworld_people = 10
 	overworld_people_max = 15
 	underworld_people = 10
 	underworld_people_max = 15
-	mood_overworld = 80 # mood from 0-100, 100 is shit, 0 is great
+	mood_overworld = 50 # mood from 0-100, 100 is shit, 0 is great
 	mood_underworld = 50
 	overworld_sick = 0
 	underworld_sick = 0
@@ -199,21 +199,7 @@ func add_underworld_people(val):
 
 # quasi wie update, nur nicht jeden frame
 func _on_timer_timeout() -> void:
-	print("_on_timer_timeout")
-	
-	calculate_population()
-	calculate_gold()
-	hospital_tick()
-	sickbay_tick()
-	organic_tick()
-	food_tick()
-	chemical_tick()
-	drug_tick()
-	dump_tick()
-	
-	
-	consume()
-	updateUI()
+	print ("wrong update")
 	pass # Replace with function body.
 	
 	
@@ -240,6 +226,9 @@ func consume():
 		mood_overworld += 5
 	print(mood_overworld)
 	print(mood_underworld)
+	if(mood_overworld >= 100 && mood_underworld >= 100):
+			get_tree().change_scene_to_file("res://screens/endScreen.tscn")
+
 
 func updateUI():
 	$"Node2D/Static UI/Panel/Stats/statsOver/HBoxContainer/organictxt".text= str(organic)
@@ -296,11 +285,11 @@ func underworld_people_available() -> float:
 
 func organic_tick():
 	if not buildable_tiles["Farm"]["levels"].is_empty():
-		var modifier
+		var modifier = 1
 		for elem in buildable_tiles["Farm"]["levels"]:
 			match elem:
 				"0":
-					modifier += 10
+					modifier += 2
 				"1":
 					modifier += 20
 				"2":
@@ -312,11 +301,11 @@ func organic_tick():
 	
 func food_tick():
 	if buildable_tiles["Butcher"]["levels"].is_empty():
-		var modifier
+		var modifier = 1
 		for elem in buildable_tiles["Butcher"]["levels"]:
 			match elem:
 				"0":
-					modifier += 10
+					modifier += 2
 				"1":
 					modifier += 20
 				"2":
@@ -329,11 +318,11 @@ func food_tick():
 	
 func drug_tick():
 	if buildable_tiles["Lab"]["levels"].is_empty():
-		var modifier
+		var modifier = 1
 		for elem in buildable_tiles["Lab"]["levels"]:
 			match elem:
 				"0":
-					modifier += 10
+					modifier += 2
 				"1":
 					modifier += 20
 				"2":
@@ -347,11 +336,11 @@ func drug_tick():
 	
 func chemical_tick():
 	if buildable_tiles["Mine"]["levels"].is_empty():
-		var modifier
+		var modifier = 1
 		for elem in buildable_tiles["Mine"]["levels"]:
 			match elem:
 				"0":
-					modifier += 10
+					modifier += 2
 				"1":
 					modifier += 20
 				"2":
@@ -363,12 +352,36 @@ func chemical_tick():
 	
 func hospital_tick():
 	if buildable_tiles["Hospital"]["levels"].is_empty():
-		pass
+		var modifier = 1
+		for elem in buildable_tiles["Hospital"]["levels"]:
+			match elem:
+				"0":
+					modifier += 1
+				"1":
+					modifier += 5
+				"2":
+					modifier += 10	
+		if (overworld_sick < modifier):
+			overworld_sick = 0
+		else:
+			overworld_sick -= modifier 
 	pass
 	
 func sickbay_tick():
 	if buildable_tiles["Sickbay"]["levels"].is_empty():
-		pass
+		var modifier = 1
+		for elem in buildable_tiles["Sickbay"]["levels"]:
+			match elem:
+				"0":
+					modifier += 1
+				"1":
+					modifier += 5
+				"2":
+					modifier += 10	
+		if (underworld_sick < modifier):
+			underworld_sick = 0
+		else:
+			underworld_sick -= modifier 
 	pass
 	
 func dump_tick():
@@ -440,3 +453,30 @@ var card_pool = [
 	mood_overworld += 5
 	},
 ]
+
+
+func _on_resourcetimer_timeout() -> void:
+	print("_on_clock")
+	
+	calculate_population()
+	
+	calculate_gold()
+	
+	hospital_tick()
+	
+	sickbay_tick()
+	
+	organic_tick()
+	
+	food_tick()
+	
+	chemical_tick()
+	
+	drug_tick()
+	
+	dump_tick()
+	
+	consume()
+	
+	updateUI()
+	pass # Replace with function body.

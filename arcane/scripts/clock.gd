@@ -4,10 +4,10 @@ extends Node2D
 @onready var day_label: Label = $DateLabel
 @onready var update_timer: Timer = $UpdateTimer
 @onready var day_timer: Timer = $DayTimer
+@onready var resource_timer: Timer = $ResourceTimer
 signal three_day_event
 var time_passed := 0.0
 var current_day := 1
-
 func _ready():
 	update_timer.wait_time = 0.1
 	update_timer.timeout.connect(_on_update_timer_tick)
@@ -20,7 +20,7 @@ func _ready():
 	_update_ui()
 
 func _on_update_timer_tick():
-	time_passed += update_timer.wait_time
+	time_passed += update_timer.wait_time		
 	if time_passed > 60.0:
 		time_passed = 0.0  # oder hier auf 0 setzen, falls du keinen Drift willst
 	_update_ui()
@@ -35,3 +35,4 @@ func _on_day_timer_timeout():
 func _update_ui():
 	day_hand.rotation_degrees = time_passed * 6.0 
 	day_label.text = "Day %d" % current_day
+	

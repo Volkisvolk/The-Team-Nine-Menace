@@ -22,10 +22,12 @@ func _process(delta):
 
 func _on_button_pressed() -> void:
 	if worldChangeBool:
-		camera.position = Vector2(0, 972)
+		#camera.position = Vector2(0, 972)
+		camera.get_node("AnimationPlayer").play("toUnder")
 		worldChangeBool = false
 	else:
-		camera.position = Vector2(0.0, 0.0)
+		#camera.position = Vector2(0.0, 0.0)
+		camera.get_node("AnimationPlayer").play("toOver")
 		worldChangeBool = true
 
 	update_mood_pointer()

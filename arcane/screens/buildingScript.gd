@@ -81,16 +81,40 @@ func _on_build_dialog_confirmed():
 
 		if area_is_free:
 			for pos in area:
-				buildingLayer.set_cell(pos, 0, Vector2i(6, 6))  # Beispiel-Kachel
 				data["built_tiles"].append(pos)
+				# Nur das Zentrum bekommt eine sichtbare Kachel
+				if pos == clickedTile:
+					if selected_building_type == "Farm":
+						buildingLayer.set_cell(pos, 1, Vector2i(0, 0))  # Apartment-Zentrum
+					elif selected_building_type == "Butcher":
+						buildingLayer.set_cell(pos, 1, Vector2i(3, 0))  # Standard-Zentrum
+					elif selected_building_type == "Hospital":
+						buildingLayer.set_cell(pos, 1, Vector2i(7, 0))
+					elif selected_building_type == "Sickbay":
+						buildingLayer.set_cell(pos, 1, Vector2i(7, 0))  # Standard-Zentrum
+					elif selected_building_type == "Apartment":
+						buildingLayer.set_cell(pos, 6, Vector2i(0, 0)) 
+					elif selected_building_type == "Hut":
+						buildingLayer.set_cell(pos, 7, Vector2i(0, 0)) 
+					elif selected_building_type == "Mine":
+						buildingLayer.set_cell(pos, 12, Vector2i(0, 0)) 
+					elif selected_building_type == "Lab":
+						buildingLayer.set_cell(pos, 9, Vector2i(0, 0)) 
+					elif selected_building_type == "Dump":
+						buildingLayer.set_cell(pos, 8, Vector2i(0, 0)) 
+					elif selected_building_type == "Overworld":
+						buildingLayer.set_cell(pos, 15, Vector2i(0, 0)) 
+					elif selected_building_type == "Underworld":
+						buildingLayer.set_cell(pos, 16, Vector2i(0, 0)) 
+						
+
 			data["levels"][clickedTile] = rootNode.startLevel + 1
 			rootNode.spend_gold(data["upgradeCosts"][0])
+			
 			if selected_building_type == "Hut":
 				rootNode.underworld_people_max += 5
 			if selected_building_type == "Apartment":
 				rootNode.overworld_people_max += 5
-			
-	
 		else:
 			print("Ein Teil des 3x3-Felds ist schon bebaut.")
 	else:
@@ -114,34 +138,42 @@ func show_build_info(gebaeude_typ: String, tile: Vector2i) -> void:
 func _on_upgrade_button_pressed():
 	if selected_building_type in rootNode.buildable_tiles:
 		var data = rootNode.buildable_tiles[selected_building_type]
+
 		if current_center_tile in data["levels"]:
 			var level = data["levels"].get(current_center_tile, 1)
 
 			if level == 5:
-				print("Can’t upgrade – already max level.")
+				print("Can't upgrade – already max level.")
 				return
 
 			var cost = data["upgradeCosts"][level]
 			if rootNode.gold >= cost:
 				rootNode.spend_gold(cost)
-				data["levels"][current_center_tile] = level + 1
+				var new_level = level + 1
+				data["levels"][current_center_tile] = new_level
 
-				levelLabel.text = "Level: " + str(level + 1)
-				emit_signal("upgrade_building", selected_building_type, level + 1)
+				levelLabel.text = "Level: " + str(new_level)
+				emit_signal("upgrade_building", selected_building_type, new_level)
 
-				# Effekt beim Apartment-Upgrade: max Bevölkerung erhöhen
-				if selected_building_type == "Apartment":
-					match level + 1:
-						1:
-							rootNode.overworld_people_max += 5
-						2:
-							rootNode.overworld_people_max += 5
-						3:
-							rootNode.overworld_people_max += 10
-						4:
-							rootNode.overworld_people_max += 15
-						5:
-							rootNode.overworld_people_max += 20
+				# Grafik für das Zentrum anpassen je nach Typ und Level
+				match selected_building_type:
+					"Farm":
+						match new_level:
+							3: buildingLayer.set_cell(current_center_tile, 1, Vector2i(1, 0))
+							5: buildingLayer.set_cell(current_center_tile, 1, Vector2i(2, 0))
+					"Butcher":
+						match new_level:
+							3: buildingLayer.set_cell(current_center_tile, 1, Vector2i(4, 0))
+							5: buildingLayer.set_cell(current_center_tile, 1, Vector2i(5, 0))
+					"Mine":
+						match new_level:
+							3: buildingLayer.set_cell(current_center_tile, 13, Vector2i(0, 0))
+							5: buildingLayer.set_cell(current_center_tile, 14, Vector2i(0, 0))
+					"Lab":
+						match new_level:
+							3: buildingLayer.set_cell(current_center_tile, 10, Vector2i(0, 0))
+							5: buildingLayer.set_cell(current_center_tile, 11, Vector2i(0, 0))
+					# Optional: weitere Gebäudetypen ergänzen, falls dort ebenfalls Upgrades sichtbar werden sollen
 
 				buildInfoDialog.hide()
 			else:

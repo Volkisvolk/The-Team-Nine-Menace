@@ -46,9 +46,10 @@ var buildable_tiles := {
 		},
 	"Hut": {
 		"centers": [
-			Vector2i(60,60),
-			Vector2i(60,64),
-			Vector2i(60,68)
+			Vector2i(50,82),
+			Vector2i(50,82),
+			Vector2i(50,77),
+			Vector2i(50,72)
 			
 		],
 		"built_tiles": [],
@@ -66,9 +67,7 @@ var buildable_tiles := {
 		},
 	"Sickbay": {
 		"centers": [
-			Vector2i(64,60),
-			Vector2i(64,64),
-			Vector2i(64,68)
+			Vector2i(74,90),
 			
 		],
 		"built_tiles": [],
@@ -79,7 +78,7 @@ var buildable_tiles := {
 		"centers": [
 			Vector2i(-4,11),
 			Vector2i(-4,5),
-			Vector2i(-1,-25),Vector2i(20,9)
+			Vector2i(-4,-27),Vector2i(20,9)
 			
 		],
 		"built_tiles": [],
@@ -88,7 +87,7 @@ var buildable_tiles := {
 		},
 	"Butcher": {
 		"centers": [
-			Vector2i(5,-7),
+			Vector2i(4,-7),
 			Vector2i(4,-13),
 			Vector2i(4,-18),
 			Vector2i(12,6),
@@ -99,10 +98,7 @@ var buildable_tiles := {
 		"upgradeCosts":  [10,10,20,50,200,500,1000],
 		},
 	"Mine": {
-		"centers": [
-			Vector2i(-10,10),
-			Vector2i(-4,6),
-			Vector2i(-4,2)
+		"centers": [Vector2i(77,81),Vector2i(64,84),Vector2i(64,75),
 			
 		],
 		"built_tiles": [],
@@ -110,10 +106,8 @@ var buildable_tiles := {
 		"upgradeCosts":  [10,10,20,50,200,500,1000],
 		},
 	"Lab": {
-		"centers": [
-			Vector2i(-10,10),
-			Vector2i(-4,6),
-			Vector2i(-4,2)
+		"centers": [Vector2i(79,63),Vector2i(67,63),Vector2i(65,41),
+
 			
 		],
 		"built_tiles": [],
@@ -121,10 +115,8 @@ var buildable_tiles := {
 		"upgradeCosts":  [10,10,20,50,200,500,1000],
 		},
 	"Dump": {
-		"centers": [
-			Vector2i(-10,10),
-			Vector2i(-4,6),
-			Vector2i(-4,2)
+		"centers": [Vector2i(53,43),Vector2i(39,60),
+
 			
 		],
 		"built_tiles": [],
@@ -141,10 +133,8 @@ var buildable_tiles := {
 		"upgradeCosts":  [10,10,20,50,200,500,1000],
 		},
 	"Underworld": {
-		"centers": [
-			Vector2i(-10,10),
-			Vector2i(-4,6),
-			Vector2i(-4,2)
+		"centers": [Vector2i(50,54),
+
 			
 		],
 		"built_tiles": [],
@@ -414,7 +404,7 @@ func drug_tick():
 		modifier *= int(underworld_people_available())
 		if modifier > chemical:
 			modifier = chemical
-		add_organic(modifier)
+		add_drug(modifier)
 
 	
 func chemical_tick():

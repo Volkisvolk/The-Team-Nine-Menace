@@ -1,74 +1,24 @@
-[gd_scene load_steps=26 format=4 uid="uid://c2l8upswfsi82"]
+[gd_scene load_steps=32 format=4 uid="uid://c2l8upswfsi82"]
 
 [ext_resource type="Script" uid="uid://nhjucnigdqjd" path="res://scripts/global.gd" id="1_gq31x"]
 [ext_resource type="Texture2D" uid="uid://bflg2yef1v4n4" path="res://assets/isometric tileset/spritesheet.png" id="1_xw2hw"]
 [ext_resource type="Script" uid="uid://cnsynfugrhurm" path="res://scripts/button.gd" id="2_0jdq0"]
-[ext_resource type="Texture2D" uid="uid://by2kha40052qq" path="res://assets/images/org.png" id="2_2rktw"]
 [ext_resource type="Script" uid="uid://cx6i4m6ov35i5" path="res://screens/buildingScript.gd" id="2_iw6lq"]
-[ext_resource type="Texture2D" uid="uid://d14l3782cqok3" path="res://assets/images/food.png" id="3_b1vw7"]
+[ext_resource type="Texture2D" uid="uid://b8ailj456q4ih" path="res://assets/images/UI/person_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" id="4_e1j5o"]
 [ext_resource type="Script" uid="uid://dq783r0q8ufjm" path="res://scripts/clock.gd" id="4_kjt3h"]
-[ext_resource type="Texture2D" uid="uid://ynkaac8qwohs" path="res://assets/images/chem.png" id="4_n5buc"]
 [ext_resource type="Texture2D" uid="uid://dvoqvik8b3qrv" path="res://assets/images/Analogue_clock_face.svg" id="4_yskxe"]
-[ext_resource type="Texture2D" uid="uid://dash8mwappmbg" path="res://assets/images/drug.png" id="5_36ifp"]
 [ext_resource type="Texture2D" uid="uid://y2w1ei2a40l4" path="res://assets/images/colorscale.png" id="5_e1j5o"]
+[ext_resource type="Texture2D" uid="uid://d2op4frjy7wlv" path="res://assets/images/UI/sick_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" id="5_e6v0d"]
 [ext_resource type="Texture2D" uid="uid://i71ddl7nad8m" path="res://assets/images/ClockHand.png" id="5_kjt3h"]
+[ext_resource type="Texture2D" uid="uid://72bwmc5rjipk" path="res://assets/images/UI/apartment_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" id="6_2a4k5"]
+[ext_resource type="Texture2D" uid="uid://lxvp5en4dv2e" path="res://assets/images/UI/eco_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" id="7_e6v0d"]
+[ext_resource type="Texture2D" uid="uid://wtq57e7ydi88" path="res://assets/images/UI/lunch_dining_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" id="8_2a4k5"]
+[ext_resource type="Texture2D" uid="uid://cky6ci4f30j4e" path="res://assets/images/UI/paid_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" id="9_2a4k5"]
 [ext_resource type="Texture2D" uid="uid://mwd831ya4x73" path="res://icon.svg" id="11_a6iw5"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e1j5o"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e6v0d"]
-
-[sub_resource type="Animation" id="Animation_2a4k5"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MoodCover:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(257, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_e1j5o"]
-resource_name = "slide_left"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MoodCover:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(257, 0), Vector2(0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_e6v0d"]
-resource_name = "slide_right"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MoodCover:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(256, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_pbnt5"]
-_data = {
-&"RESET": SubResource("Animation_2a4k5"),
-&"slide_left": SubResource("Animation_e1j5o"),
-&"slide_right": SubResource("Animation_e6v0d")
-}
+[ext_resource type="Texture2D" uid="uid://bfjr0h6kb23e8" path="res://assets/images/UI/camping_450dp_E3E3E3_FILL0_wght400_GRAD0_opsz48.png" id="12_xsyum"]
+[ext_resource type="Texture2D" uid="uid://d3w3er73c7s55" path="res://assets/images/UI/labs_450dp_E3E3E3_FILL0_wght400_GRAD0_opsz48.png" id="13_4rpei"]
+[ext_resource type="Texture2D" uid="uid://dsp52ydv08327" path="res://assets/images/UI/pill_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" id="14_sls1w"]
+[ext_resource type="Texture2D" uid="uid://x5vvkjg3b2n0" path="res://assets/images/UI/delete_450dp_E3E3E3_FILL0_wght400_GRAD0_opsz48.png" id="15_a0sa1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gq31x"]
 texture = ExtResource("1_xw2hw")
@@ -414,6 +364,62 @@ tile_layout = 5
 tile_size = Vector2i(32, 16)
 navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_gq31x")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e1j5o"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e6v0d"]
+
+[sub_resource type="Animation" id="Animation_2a4k5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MoodCover:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(257, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_e1j5o"]
+resource_name = "slide_left"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MoodCover:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(50, 0), Vector2(-206, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_e6v0d"]
+resource_name = "slide_right"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MoodCover:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-206, 0), Vector2(50, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pbnt5"]
+_data = {
+&"RESET": SubResource("Animation_2a4k5"),
+&"slide_left": SubResource("Animation_e1j5o"),
+&"slide_right": SubResource("Animation_e6v0d")
+}
 
 [sub_resource type="Image" id="Image_iw6lq"]
 data = {
@@ -1602,7 +1608,7 @@ offset_bottom = 376.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="Stats" type="HBoxContainer" parent="Node2D/Static UI/Panel"]
+[node name="Stats" type="GridContainer" parent="Node2D/Static UI/Panel"]
 clip_contents = true
 layout_mode = 1
 anchors_preset = 15
@@ -1610,41 +1616,134 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 10
-alignment = 1
+theme_override_constants/h_separation = -180
+columns = 3
 
 [node name="statsOver" type="HBoxContainer" parent="Node2D/Static UI/Panel/Stats"]
 layout_mode = 2
-size_flags_horizontal = 6
+size_flags_horizontal = 10
 size_flags_vertical = 6
+theme_override_constants/separation = 100
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Node2D/Static UI/Panel/Stats/statsOver"]
+[node name="overworld_people" type="HBoxContainer" parent="Node2D/Static UI/Panel/Stats/statsOver"]
 layout_mode = 2
 
-[node name="organictxt" type="Label" parent="Node2D/Static UI/Panel/Stats/statsOver/HBoxContainer"]
+[node name="people" type="Sprite2D" parent="Node2D/Static UI/Panel/Stats/statsOver/overworld_people"]
+position = Vector2(-170, 6.00002)
+scale = Vector2(0.1025, 0.1)
+texture = ExtResource("4_e1j5o")
+
+[node name="peopletxt" type="Label" parent="Node2D/Static UI/Panel/Stats/statsOver/overworld_people/people"]
 custom_minimum_size = Vector2(80, 0)
-layout_mode = 2
+offset_left = 156.0
+offset_top = -200.0
+offset_right = 702.0
+offset_bottom = 200.0
+theme_override_font_sizes/font_size = 250
 text = "000"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="org" type="Sprite2D" parent="Node2D/Static UI/Panel/Stats/statsOver/HBoxContainer/organictxt"]
-position = Vector2(-17, 10)
-scale = Vector2(0.1025, 0.1025)
-texture = ExtResource("2_2rktw")
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="Node2D/Static UI/Panel/Stats/statsOver"]
+[node name="overworld_sick" type="HBoxContainer" parent="Node2D/Static UI/Panel/Stats/statsOver"]
 layout_mode = 2
 
-[node name="foodtxt" type="Label" parent="Node2D/Static UI/Panel/Stats/statsOver/HBoxContainer2"]
+[node name="sickpeople" type="Sprite2D" parent="Node2D/Static UI/Panel/Stats/statsOver/overworld_sick"]
+position = Vector2(-170, 6.00002)
+scale = Vector2(0.1025, 0.1)
+texture = ExtResource("5_e6v0d")
+
+[node name="sickpeopletxt" type="Label" parent="Node2D/Static UI/Panel/Stats/statsOver/overworld_sick/sickpeople"]
 custom_minimum_size = Vector2(80, 0)
+offset_left = 156.0
+offset_top = -200.0
+offset_right = 702.0
+offset_bottom = 200.0
+theme_override_font_sizes/font_size = 250
+text = "000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="overworld_people_max" type="HBoxContainer" parent="Node2D/Static UI/Panel/Stats/statsOver"]
 layout_mode = 2
-text = "111"
 
-[node name="food" type="Sprite2D" parent="Node2D/Static UI/Panel/Stats/statsOver/HBoxContainer2/foodtxt"]
-position = Vector2(-17, 10)
-scale = Vector2(0.1025, 0.1025)
-texture = ExtResource("3_b1vw7")
+[node name="people_max" type="Sprite2D" parent="Node2D/Static UI/Panel/Stats/statsOver/overworld_people_max"]
+position = Vector2(-170, 6.00002)
+scale = Vector2(0.1025, 0.1)
+texture = ExtResource("6_2a4k5")
 
-[node name="Button" type="Button" parent="Node2D/Static UI/Panel/Stats"]
+[node name="overworld_people_maxtxt" type="Label" parent="Node2D/Static UI/Panel/Stats/statsOver/overworld_people_max/people_max"]
+custom_minimum_size = Vector2(80, 0)
+offset_left = 156.0
+offset_top = -200.0
+offset_right = 702.0
+offset_bottom = 200.0
+theme_override_font_sizes/font_size = 250
+text = "000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="organic" type="HBoxContainer" parent="Node2D/Static UI/Panel/Stats/statsOver"]
+layout_mode = 2
+
+[node name="org" type="Sprite2D" parent="Node2D/Static UI/Panel/Stats/statsOver/organic"]
+position = Vector2(-170, 6.00002)
+scale = Vector2(0.1025, 0.1)
+texture = ExtResource("7_e6v0d")
+
+[node name="organictxt" type="Label" parent="Node2D/Static UI/Panel/Stats/statsOver/organic/org"]
+custom_minimum_size = Vector2(80, 0)
+offset_left = 156.0
+offset_top = -200.0
+offset_right = 702.0
+offset_bottom = 200.0
+theme_override_font_sizes/font_size = 250
+text = "000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="food" type="HBoxContainer" parent="Node2D/Static UI/Panel/Stats/statsOver"]
+layout_mode = 2
+
+[node name="food" type="Sprite2D" parent="Node2D/Static UI/Panel/Stats/statsOver/food"]
+position = Vector2(-170, 6.00002)
+scale = Vector2(0.1025, 0.1)
+texture = ExtResource("8_2a4k5")
+
+[node name="foodtxt" type="Label" parent="Node2D/Static UI/Panel/Stats/statsOver/food/food"]
+custom_minimum_size = Vector2(80, 0)
+offset_left = 156.0
+offset_top = -200.0
+offset_right = 702.0
+offset_bottom = 200.0
+theme_override_font_sizes/font_size = 250
+text = "000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="gold" type="HBoxContainer" parent="Node2D/Static UI/Panel/Stats/statsOver"]
+layout_mode = 2
+
+[node name="gold" type="Sprite2D" parent="Node2D/Static UI/Panel/Stats/statsOver/gold"]
+position = Vector2(-170, 6.00002)
+scale = Vector2(0.1025, 0.1)
+texture = ExtResource("9_2a4k5")
+
+[node name="goldtxt" type="Label" parent="Node2D/Static UI/Panel/Stats/statsOver/gold/gold"]
+custom_minimum_size = Vector2(80, 0)
+offset_left = 156.0
+offset_top = -200.0
+offset_right = 702.0
+offset_bottom = 200.0
+theme_override_font_sizes/font_size = 250
+text = "000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control" type="HBoxContainer" parent="Node2D/Static UI/Panel/Stats"]
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="Button" type="Button" parent="Node2D/Static UI/Panel/Stats/Control"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/focus = SubResource("StyleBoxFlat_e1j5o")
@@ -1652,7 +1751,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_e6v0d")
 text = "Over/Under"
 script = ExtResource("2_0jdq0")
 
-[node name="GradientBar" type="TextureRect" parent="Node2D/Static UI/Panel/Stats/Button"]
+[node name="GradientBar" type="TextureRect" parent="Node2D/Static UI/Panel/Stats/Control/Button"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1660,21 +1759,21 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -256.0
-offset_top = -53.5
+offset_top = -54.0
 offset_right = 256.0
-offset_bottom = 53.5
+offset_bottom = 54.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("5_e1j5o")
 
-[node name="OverworldPointer" type="ColorRect" parent="Node2D/Static UI/Panel/Stats/Button"]
+[node name="OverworldPointer" type="ColorRect" parent="Node2D/Static UI/Panel/Stats/Control/Button"]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
 grow_vertical = 2
 color = Color(0.000113828, 0.000113828, 0.000113828, 1)
 
-[node name="UnderworldPointer" type="ColorRect" parent="Node2D/Static UI/Panel/Stats/Button"]
+[node name="UnderworldPointer" type="ColorRect" parent="Node2D/Static UI/Panel/Stats/Control/Button"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -1687,19 +1786,19 @@ offset_bottom = 47.0
 grow_horizontal = 0
 grow_vertical = 2
 
-[node name="MoodCover" type="ColorRect" parent="Node2D/Static UI/Panel/Stats/Button"]
+[node name="MoodCover" type="ColorRect" parent="Node2D/Static UI/Panel/Stats/Control/Button"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 257.0
-offset_right = -60.0
+offset_right = 413.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0.303, 0.303, 0.303, 0.95)
 
-[node name="CoverLabel" type="Label" parent="Node2D/Static UI/Panel/Stats/Button/MoodCover"]
+[node name="CoverLabel" type="Label" parent="Node2D/Static UI/Panel/Stats/Control/Button/MoodCover"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1715,34 +1814,130 @@ grow_vertical = 2
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/Static UI/Panel/Stats/Button"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/Static UI/Panel/Stats/Control/Button"]
 libraries = {
 &"": SubResource("AnimationLibrary_pbnt5")
 }
 
 [node name="statsUnder" type="HBoxContainer" parent="Node2D/Static UI/Panel/Stats"]
 layout_mode = 2
-size_flags_horizontal = 6
+size_flags_horizontal = 10
+size_flags_vertical = 6
+theme_override_constants/separation = 100
 
-[node name="chemic" type="Label" parent="Node2D/Static UI/Panel/Stats/statsUnder"]
-custom_minimum_size = Vector2(80, 0)
+[node name="underworld_people" type="HBoxContainer" parent="Node2D/Static UI/Panel/Stats/statsUnder"]
 layout_mode = 2
-text = "222"
 
-[node name="chem" type="Sprite2D" parent="Node2D/Static UI/Panel/Stats/statsUnder/chemic"]
-position = Vector2(-13, 10)
-scale = Vector2(0.1025, 0.1025)
-texture = ExtResource("4_n5buc")
+[node name="people" type="Sprite2D" parent="Node2D/Static UI/Panel/Stats/statsUnder/underworld_people"]
+position = Vector2(-170, 6.00002)
+scale = Vector2(0.1025, 0.1)
+texture = ExtResource("4_e1j5o")
 
-[node name="drugs" type="Label" parent="Node2D/Static UI/Panel/Stats/statsUnder"]
+[node name="underpeopletxt" type="Label" parent="Node2D/Static UI/Panel/Stats/statsUnder/underworld_people/people"]
 custom_minimum_size = Vector2(80, 0)
-layout_mode = 2
-text = "333"
+offset_left = 156.0
+offset_top = -200.0
+offset_right = 702.0
+offset_bottom = 200.0
+theme_override_font_sizes/font_size = 250
+text = "000"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="drug" type="Sprite2D" parent="Node2D/Static UI/Panel/Stats/statsUnder/drugs"]
-position = Vector2(-17, 10)
-scale = Vector2(0.1025, 0.1025)
-texture = ExtResource("5_36ifp")
+[node name="underworld_sick" type="HBoxContainer" parent="Node2D/Static UI/Panel/Stats/statsUnder"]
+layout_mode = 2
+
+[node name="sickpeople" type="Sprite2D" parent="Node2D/Static UI/Panel/Stats/statsUnder/underworld_sick"]
+position = Vector2(-170, 6.00002)
+scale = Vector2(0.1025, 0.1)
+texture = ExtResource("5_e6v0d")
+
+[node name="underpeopletxt" type="Label" parent="Node2D/Static UI/Panel/Stats/statsUnder/underworld_sick/sickpeople"]
+custom_minimum_size = Vector2(80, 0)
+offset_left = 156.0
+offset_top = -200.0
+offset_right = 702.0
+offset_bottom = 200.0
+theme_override_font_sizes/font_size = 250
+text = "000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="underworld_people_max" type="HBoxContainer" parent="Node2D/Static UI/Panel/Stats/statsUnder"]
+layout_mode = 2
+
+[node name="people_max" type="Sprite2D" parent="Node2D/Static UI/Panel/Stats/statsUnder/underworld_people_max"]
+position = Vector2(-170, 6.00002)
+scale = Vector2(0.1025, 0.1)
+texture = ExtResource("12_xsyum")
+
+[node name="underworld_people_maxtxt" type="Label" parent="Node2D/Static UI/Panel/Stats/statsUnder/underworld_people_max/people_max"]
+custom_minimum_size = Vector2(80, 0)
+offset_left = 156.0
+offset_top = -200.0
+offset_right = 702.0
+offset_bottom = 200.0
+theme_override_font_sizes/font_size = 250
+text = "000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="chemic" type="HBoxContainer" parent="Node2D/Static UI/Panel/Stats/statsUnder"]
+layout_mode = 2
+
+[node name="chemic" type="Sprite2D" parent="Node2D/Static UI/Panel/Stats/statsUnder/chemic"]
+position = Vector2(-170, 6.00002)
+scale = Vector2(0.1025, 0.1)
+texture = ExtResource("13_4rpei")
+
+[node name="chemtxt" type="Label" parent="Node2D/Static UI/Panel/Stats/statsUnder/chemic/chemic"]
+custom_minimum_size = Vector2(80, 0)
+offset_left = 156.0
+offset_top = -200.0
+offset_right = 702.0
+offset_bottom = 200.0
+theme_override_font_sizes/font_size = 250
+text = "000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="drug" type="HBoxContainer" parent="Node2D/Static UI/Panel/Stats/statsUnder"]
+layout_mode = 2
+
+[node name="drug" type="Sprite2D" parent="Node2D/Static UI/Panel/Stats/statsUnder/drug"]
+position = Vector2(-170, 6.00002)
+scale = Vector2(0.1025, 0.1)
+texture = ExtResource("14_sls1w")
+
+[node name="drugtxt" type="Label" parent="Node2D/Static UI/Panel/Stats/statsUnder/drug/drug"]
+custom_minimum_size = Vector2(80, 0)
+offset_left = 156.0
+offset_top = -200.0
+offset_right = 702.0
+offset_bottom = 200.0
+theme_override_font_sizes/font_size = 250
+text = "000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="trash" type="HBoxContainer" parent="Node2D/Static UI/Panel/Stats/statsUnder"]
+layout_mode = 2
+
+[node name="trash" type="Sprite2D" parent="Node2D/Static UI/Panel/Stats/statsUnder/trash"]
+position = Vector2(-170, 6.00002)
+scale = Vector2(0.1025, 0.1)
+texture = ExtResource("15_a0sa1")
+
+[node name="trashtxt" type="Label" parent="Node2D/Static UI/Panel/Stats/statsUnder/trash/trash"]
+custom_minimum_size = Vector2(80, 0)
+offset_left = 156.0
+offset_top = -200.0
+offset_right = 702.0
+offset_bottom = 200.0
+theme_override_font_sizes/font_size = 250
+text = "000"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Camera2D" type="Camera2D" parent="Node2D"]
 
@@ -1895,7 +2090,7 @@ text = "Upgrade"
 [node name="upgradeCost" type="Label" parent="Node2D/buildInfoDialog/VBoxContainer"]
 layout_mode = 2
 
-[connection signal="pressed" from="Node2D/Static UI/Panel/Stats/Button" to="Node2D/Static UI/Panel/Stats/Button" method="_on_button_pressed"]
+[connection signal="pressed" from="Node2D/Static UI/Panel/Stats/Control/Button" to="Node2D/Static UI/Panel/Stats/Control/Button" method="_on_button_pressed"]
 [connection signal="three_day_event" from="Node2D/Camera2D/Clock" to="." method="_on_clock_three_day_event"]
 [connection signal="timeout" from="Node2D/Camera2D/Clock/ResourceTimer" to="." method="_on_resourcetimer_timeout"]
 [connection signal="confirmed" from="Node2D/buildDialog" to="Node2D/board" method="_on_build_dialog_confirmed"]

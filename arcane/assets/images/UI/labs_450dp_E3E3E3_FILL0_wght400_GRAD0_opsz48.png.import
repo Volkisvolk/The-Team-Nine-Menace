@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dash8mwappmbg"
-path="res://.godot/imported/drug.png-954aa964b46506984bda35d5e17728f9.ctex"
+uid="uid://d3w3er73c7s55"
+path="res://.godot/imported/labs_450dp_E3E3E3_FILL0_wght400_GRAD0_opsz48.png-bdf7d2b077ecd759ed6afc029e9e7251.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/drug.png"
-dest_files=["res://.godot/imported/drug.png-954aa964b46506984bda35d5e17728f9.ctex"]
+source_file="res://assets/images/UI/labs_450dp_E3E3E3_FILL0_wght400_GRAD0_opsz48.png"
+dest_files=["res://.godot/imported/labs_450dp_E3E3E3_FILL0_wght400_GRAD0_opsz48.png-bdf7d2b077ecd759ed6afc029e9e7251.ctex"]
 
 [params]
 

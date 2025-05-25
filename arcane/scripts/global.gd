@@ -155,17 +155,17 @@ var buildable_tiles := {
 func _ready() -> void:
 	startLevel = 0
 	startUpgradeCost = 1
-	gold = 10000
+	gold = 100
 	organic = 0
-	food = 5
-	chemical = 100
-	drug = 10000
-	overworld_people = 10
-	overworld_people_max = 15
-	underworld_people = 10
-	underworld_people_max = 15
-	mood_overworld = 50 # mood from 0-100, 100 is shit, 0 is great
-	mood_underworld = 50
+	food = 0
+	chemical = 0
+	drug = 0
+	overworld_people = 5
+	overworld_people_max = 5
+	underworld_people = 5
+	underworld_people_max = 5
+	mood_overworld = 0 # mood from 0-100, 100 is shit, 0 is great
+	mood_underworld = 0
 	overworld_sick = 0
 	underworld_sick = 0
 	updateUI()
@@ -259,41 +259,62 @@ func updateUI():
 func calculate_population():
 	if overworld_people <= 0 || underworld_people <= 0:
 		get_tree().change_scene_to_file("res://screens/endScreen.tscn")
-	
+
+	# Apartments (Overworld)
 	if not buildable_tiles["Apartment"]["levels"].is_empty():
-		var new_people = 0
-		for elem in buildable_tiles["Apartment"]["levels"]:
-			match elem:
-				"0":
-					new_people += 1
-				"1":
-					new_people += 5
-				"2":
-					new_people += 20
-		if overworld_people < overworld_people_max:
-			
-			overworld_people += new_people
-			if overworld_people > overworld_people_max:
-				overworld_people = overworld_people_max
-			
-		print("yo")
+		for center in buildable_tiles["Apartment"]["levels"].keys():
+			if overworld_people >= overworld_people_max:
+				break  # Max erreicht – nichts mehr hinzufügen
+
+			var level = int(buildable_tiles["Apartment"]["levels"].get(center, 0))
+			var people_gain = 0
+
+			match level:
+				0:
+					people_gain = 1
+				1:
+					people_gain = 1
+				2:
+					people_gain = 1
+				3:
+					people_gain = 1
+				4:
+					people_gain = 1
+				5:
+					people_gain = 1
+
+			var available_space = overworld_people_max - overworld_people
+			overworld_people += min(people_gain, available_space)
+
+	# Hütten (Underworld)
 	if not buildable_tiles["Hut"]["levels"].is_empty():
-		var new_people = 0
-		for elem in buildable_tiles["Hut"]["levels"]:
-			match elem:
-				"0":
-					new_people += 1
-				"1":
-					new_people += 5
-				"2":
-					new_people += 20
-		if underworld_people < underworld_people_max:
-			
-			underworld_people += new_people
-			if underworld_people > underworld_people_max:
-				underworld_people = underworld_people_max
-			
-	pass
+		for center in buildable_tiles["Hut"]["levels"].keys():
+			if underworld_people >= underworld_people_max:
+				break
+
+			var level = int(buildable_tiles["Hut"]["levels"].get(center, 0))
+			var people_gain = 0
+
+			match level:
+				0:
+					people_gain = 1
+				1:
+					people_gain = 1
+				2:
+					people_gain = 20
+				3:
+					people_gain = 40
+				4:
+					people_gain = 70
+				5:
+					people_gain = 100
+
+			var available_space = underworld_people_max - underworld_people
+			underworld_people += min(people_gain, available_space)
+
+
+
+
 
 func overworld_people_available() -> float:
 	return (overworld_people - overworld_sick) / overworld_people
@@ -341,32 +362,31 @@ func pollution_infect_tick():
 func organic_tick():
 	if not buildable_tiles["Farm"]["levels"].is_empty():
 		var modifier = 1
-		for elem in buildable_tiles["Farm"]["levels"]:
-			match elem:
-				"0":
+		for level in buildable_tiles["Farm"]["levels"].values():
+			match int(level):
+				0:
 					modifier += 2
-				"1":
+				1:
 					modifier += 20
 					trash += 5
-				"2":
+				2:
 					modifier += 40	
 					trash += 10
-		
 		add_organic(int(modifier * overworld_people_available()))
 		
-	pass
+		
 	
 func food_tick():
 	if not buildable_tiles["Butcher"]["levels"].is_empty():
 		var modifier = 1
-		for elem in buildable_tiles["Butcher"]["levels"]:
-			match elem:
-				"0":
+		for level in buildable_tiles["Butcher"]["levels"].values():
+			match int(level):
+				0:
 					modifier += 2
-				"1":
+				1:
 					modifier += 20
 					trash += 5
-				"2":
+				2:
 					modifier += 40	
 					trash += 10
 		modifier *= int(overworld_people_available())
@@ -374,79 +394,76 @@ func food_tick():
 			modifier = organic
 		add_food(modifier)
 		add_organic(-modifier)
-	pass
+
 	
 func drug_tick():
 	if not buildable_tiles["Lab"]["levels"].is_empty():
 		var modifier = 1
-		for elem in buildable_tiles["Lab"]["levels"]:
-			match elem:
-				"0":
+		for level in buildable_tiles["Lab"]["levels"].values():
+			match int(level):
+				0:
 					modifier += 2
-				"1":
+				1:
 					modifier += 20
 					pollution += 1
-				"2":
+				2:
 					modifier += 40	
 					pollution += 2
 		modifier *= int(underworld_people_available())
 		if modifier > chemical:
 			modifier = chemical
 		add_organic(modifier)
-	
-	pass
+
 	
 func chemical_tick():
-	if buildable_tiles["Mine"]["levels"].is_empty():
+	if not buildable_tiles["Mine"]["levels"].is_empty():
 		var modifier = 1
-		for elem in buildable_tiles["Mine"]["levels"]:
-			match elem:
-				"0":
+		for level in buildable_tiles["Mine"]["levels"].values():
+			match int(level):
+				0:
 					modifier += 2
-				"1":
+				1:
 					modifier += 20
 					pollution += 1
-				"2":
+				2:
 					modifier += 40	
 					pollution += 2
-
 		add_chemical(int(modifier * underworld_people_available()))
-		
-	pass
+
 	
 func hospital_tick():
-	if buildable_tiles["Hospital"]["levels"].is_empty():
+	if not buildable_tiles["Hospital"]["levels"].is_empty():
 		var modifier = 1
-		for elem in buildable_tiles["Hospital"]["levels"]:
-			match elem:
-				"0":
+		for level in buildable_tiles["Hospital"]["levels"].values():
+			match int(level):
+				0:
 					modifier += 1
-				"1":
+				1:
 					modifier += 5
-				"2":
-					modifier += 10	
-		if (overworld_sick < modifier):
+				2:
+					modifier += 10
+		if overworld_sick < modifier:
 			overworld_sick = 0
 		else:
 			overworld_sick -= modifier 
-	pass
+
 	
 func sickbay_tick():
-	if buildable_tiles["Sickbay"]["levels"].is_empty():
+	if not buildable_tiles["Sickbay"]["levels"].is_empty():
 		var modifier = 1
-		for elem in buildable_tiles["Sickbay"]["levels"]:
-			match elem:
-				"0":
+		for level in buildable_tiles["Sickbay"]["levels"].values():
+			match int(level):
+				0:
 					modifier += 1
-				"1":
+				1:
 					modifier += 5
-				"2":
-					modifier += 10	
-		if (underworld_sick < modifier):
+				2:
+					modifier += 10
+		if underworld_sick < modifier:
 			underworld_sick = 0
 		else:
 			underworld_sick -= modifier 
-	pass
+
 	
 func dump_tick():
 	if buildable_tiles["Dump"]["levels"].is_empty():

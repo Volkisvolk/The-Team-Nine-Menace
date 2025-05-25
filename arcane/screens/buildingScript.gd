@@ -83,8 +83,14 @@ func _on_build_dialog_confirmed():
 			for pos in area:
 				buildingLayer.set_cell(pos, 0, Vector2i(6, 6))  # Beispiel-Kachel
 				data["built_tiles"].append(pos)
-			data["levels"][clickedTile] = rootNode.startLevel
+			data["levels"][clickedTile] = rootNode.startLevel + 1
 			rootNode.spend_gold(data["upgradeCosts"][0])
+			if selected_building_type == "Hut":
+				rootNode.underworld_people_max += 5
+			if selected_building_type == "Apartment":
+				rootNode.overworld_people_max += 5
+			
+	
 		else:
 			print("Ein Teil des 3x3-Felds ist schon bebaut.")
 	else:
@@ -106,16 +112,39 @@ func show_build_info(gebaeude_typ: String, tile: Vector2i) -> void:
 
 
 func _on_upgrade_button_pressed():
-	
 	if selected_building_type in rootNode.buildable_tiles:
 		var data = rootNode.buildable_tiles[selected_building_type]
 		if current_center_tile in data["levels"]:
 			var level = data["levels"].get(current_center_tile, 1)
-			data["levels"][current_center_tile] += 1
-			levelLabel.text = "Level: " + str(data["levels"][current_center_tile])
-			print("Gold vor Upgrade " + str(rootNode.gold))
-			rootNode.spend_gold(data["upgradeCosts"][level])
-			print("Gold nach Upgrade " + str(rootNode.gold))
-			emit_signal("upgrade_building", selected_building_type, data["levels"][current_center_tile])
+
+			if level == 5:
+				print("Can’t upgrade – already max level.")
+				return
+
+			var cost = data["upgradeCosts"][level]
+			if rootNode.gold >= cost:
+				rootNode.spend_gold(cost)
+				data["levels"][current_center_tile] = level + 1
+
+				levelLabel.text = "Level: " + str(level + 1)
+				emit_signal("upgrade_building", selected_building_type, level + 1)
+
+				# Effekt beim Apartment-Upgrade: max Bevölkerung erhöhen
+				if selected_building_type == "Apartment":
+					match level + 1:
+						1:
+							rootNode.overworld_people_max += 5
+						2:
+							rootNode.overworld_people_max += 5
+						3:
+							rootNode.overworld_people_max += 10
+						4:
+							rootNode.overworld_people_max += 15
+						5:
+							rootNode.overworld_people_max += 20
+
+				buildInfoDialog.hide()
+			else:
+				print("Nicht genug Gold.")
 		else:
 			print("Kein Level-Eintrag für:", current_center_tile)

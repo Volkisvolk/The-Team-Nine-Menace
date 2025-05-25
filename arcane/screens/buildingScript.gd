@@ -81,16 +81,25 @@ func _on_build_dialog_confirmed():
 
 		if area_is_free:
 			for pos in area:
-				buildingLayer.set_cell(pos, 0, Vector2i(6, 6))  # Beispiel-Kachel
 				data["built_tiles"].append(pos)
+				# Nur das Zentrum bekommt eine sichtbare Kachel
+				if pos == clickedTile:
+					if selected_building_type == "Farm":
+						buildingLayer.set_cell(pos, 1, Vector2i(1, 0))  # Apartment-Zentrum
+					elif selected_building_type == "Butcher":
+						buildingLayer.set_cell(pos, 1, Vector2i(3, 0))  # Standard-Zentrum
+					elif selected_building_type == "Hospital":
+						buildingLayer.set_cell(pos, 1, Vector2i(7, 0))  # Standard-Zentrum
+					elif selected_building_type == "Apartment":
+						buildingLayer.set_cell(pos, 1, Vector2i(4, 0)) 
+
 			data["levels"][clickedTile] = rootNode.startLevel + 1
 			rootNode.spend_gold(data["upgradeCosts"][0])
+			
 			if selected_building_type == "Hut":
 				rootNode.underworld_people_max += 5
 			if selected_building_type == "Apartment":
 				rootNode.overworld_people_max += 5
-			
-	
 		else:
 			print("Ein Teil des 3x3-Felds ist schon bebaut.")
 	else:

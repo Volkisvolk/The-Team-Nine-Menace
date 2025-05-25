@@ -149,41 +149,31 @@ func _on_upgrade_button_pressed():
 			var cost = data["upgradeCosts"][level]
 			if rootNode.gold >= cost:
 				rootNode.spend_gold(cost)
-				data["levels"][current_center_tile] = level + 1
-
 				var new_level = level + 1
+				data["levels"][current_center_tile] = new_level
+
 				levelLabel.text = "Level: " + str(new_level)
 				emit_signal("upgrade_building", selected_building_type, new_level)
-				if selected_building_type == "Farm":
-					match new_level:
-						3:
-							buildingLayer.set_cell(current_center_tile, 1, Vector2i(1, 0))  # Beispiel für Farm Lvl 3
-						5:
-							buildingLayer.set_cell(current_center_tile, 1, Vector2i(2, 0))  # Beispiel für Farm Lvl 5
 
-				# === Butcher: Grafik ändern ===
-				elif selected_building_type == "Butcher":
-					match new_level:
-						3:
-							buildingLayer.set_cell(current_center_tile, 1, Vector2i(4, 0))  # Beispiel für Butcher Lvl 3
-						5:
-							buildingLayer.set_cell(current_center_tile, 1, Vector2i(5, 0))  # Beispiel für Butcher Lvl 5
-
-				# === Mine: Grafik ändern ===
-				elif selected_building_type == "Mine":
-					match new_level:
-						3:
-							buildingLayer.set_cell(current_center_tile, 13, Vector2i(0, 0))  # Beispiel für Mine Lvl 3
-						5:
-							buildingLayer.set_cell(current_center_tile, 14, Vector2i(0, 0))  # Beispiel für Mine Lvl 5
-
-				# === Lab: Grafik ändern ===
-				elif selected_building_type == "Lab":
-					match new_level:
-						3:
-							buildingLayer.set_cell(current_center_tile, 10, Vector2i(0, 0))  # Beispiel für Lab Lvl 3
-						5:
-							buildingLayer.set_cell(current_center_tile, 11, Vector2i(0, 0))  # Beispiel für Lab Lvl 5
+				# Grafik für das Zentrum anpassen je nach Typ und Level
+				match selected_building_type:
+					"Farm":
+						match new_level:
+							3: buildingLayer.set_cell(current_center_tile, 1, Vector2i(1, 0))
+							5: buildingLayer.set_cell(current_center_tile, 1, Vector2i(2, 0))
+					"Butcher":
+						match new_level:
+							3: buildingLayer.set_cell(current_center_tile, 1, Vector2i(4, 0))
+							5: buildingLayer.set_cell(current_center_tile, 1, Vector2i(5, 0))
+					"Mine":
+						match new_level:
+							3: buildingLayer.set_cell(current_center_tile, 13, Vector2i(0, 0))
+							5: buildingLayer.set_cell(current_center_tile, 14, Vector2i(0, 0))
+					"Lab":
+						match new_level:
+							3: buildingLayer.set_cell(current_center_tile, 10, Vector2i(0, 0))
+							5: buildingLayer.set_cell(current_center_tile, 11, Vector2i(0, 0))
+					# Optional: weitere Gebäudetypen ergänzen, falls dort ebenfalls Upgrades sichtbar werden sollen
 
 				buildInfoDialog.hide()
 			else:

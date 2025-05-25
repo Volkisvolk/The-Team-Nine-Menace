@@ -527,23 +527,87 @@ func resume_timers():
 #TODO vlt noch Grafik oder so einfügen 
 var card_pool = [
 	{
-	"name": "Krankheitswelle",
-	"description": "Stimmung Unterwelt +10",
-	"effect": func(): mood_underworld += 10
+		"name": "Attack on the Dam",
+		"description": "River pollution increased.\nEffect: +30 pollution\nAn attack on the dam causes uncontrolled spread of polluted water.",
+		"effect": func(): pollution += 30
 	},
 	{
-	"name": "Fruchtbare Ernte",
-	"description": "Essen +25",
-	"effect": func(): food += 25
+		"name": "The Rats Have Arrived",
+		"description": "Waste increases heavily.\nEffect: +50 trash\nA rat infestation hits the dump site.",
+		"effect": func(): trash += 50
 	},
 	{
-	"name": "Kontamination",
-	"description": "Chemikalien -10, Stimmung Oberwelt +5",
-	"effect": func():
-	chemical = max(0, chemical - 10)
-	mood_overworld += 5
+		"name": "Great Tit Breeding",
+		"description": "Farm productivity decreased.\nEffect: -10 organic\nThe rare Great Tit starts breeding on the cow pasture, forcing evacuation.",
+		"effect": func(): organic -= 10
 	},
+	{
+		"name": "Cock-of-the-Rock Emergency",
+		"description": "Butcher productivity decreased.\nEffect: -10 food\nThe butcher gets bombed by a bird. He needs a break now.",
+		"effect": func(): food -= 10
+	},
+	{
+		"name": "Boobies in Danger",
+		"description": "Lab productivity decreased.\nEffect: -10 drug\nSick blue-footed boobies require lab treatment, reducing productivity.",
+		"effect": func(): drug -= 10
+	},
+	{
+		"name": "Flying Fox of Terror",
+		"description": "Mine productivity decreased.\nEffect: -10 chemical\nA terrifying bat-like creature drives workers out of the mines.",
+		"effect": func(): chemical -= 10
+	},
+	{
+		"name": "John Loglet",
+		"description": "Farm productivity increased, happiness overworld -.\nEffect: +20 organic, +5 mood overworld\nA mysterious visionary boosts farm output but is disliked by the people.",
+		"effect": func(): organic += 20; mood_overworld += 5
+	},
+	{
+		"name": "Schmelon Kusk",
+		"description": "Lab productivity increased, happiness underworld -.\nEffect: +20 drug, +5 mood underworld\nA mysterious visionary boosts lab output but is disliked underground.",
+		"effect": func(): drug += 20; mood_underworld += 5
+	},
+	{
+		"name": "Dr. Mike Cleanly",
+		"description": "Mine productivity increased, happiness underworld -.\nEffect: +20 chemical, +5 mood underworld\nA mysterious visionary boosts mining, but gets on everyone's nerves.",
+		"effect": func(): chemical += 20; mood_underworld += 5
+	},
+	{
+		"name": "Ronald Dump",
+		"description": "Butcher productivity increased, happiness overworld -.\nEffect: +20 food, +5 mood overworld\nA visionary shows up with meat ideas. The people are not amused.",
+		"effect": func(): food += 20; mood_overworld += 5
+	},
+	{
+		"name": "Alligator Raid",
+		"description": "Cows lost.\nEffect: -20 organic\nHungry gators take a bite out of your livestock.",
+		"effect": func(): organic = max(0, organic - 20)
+	},
+	{
+		"name": "The Rolling Stoned",
+		"description": "Food consumption spike.\nEffect: -30 food\nA group of very high students clean out your storage.",
+		"effect": func(): food = max(0, food - 30)
+	},
+	{
+		"name": "Student Visit Day",
+		"description": "Chemical reserves damaged.\nEffect: -30 chemical\nSchool kids accidentally set the chemical storage on fire.",
+		"effect": func(): chemical = max(0, chemical - 30)
+	},
+	{
+		"name": "Warehouse Rave",
+		"description": "Drugs mysteriously gone.\nEffect: -30 drug\nA rave inside the medical storage leads to mysterious shortages.",
+		"effect": func(): drug = max(0, drug - 30)
+	},
+	{
+		"name": "Mine Accident",
+		"description": "Underworld population loss.\nEffect: -5 underworld population\nA cave-in crushes several workers underground.",
+		"effect": func(): underworld_people = max(0, underworld_people - 5)
+	},
+	{
+		"name": "The Butcher Goes Crazy",
+		"description": "Overworld population loss.\nEffect: -5 overworld population\nThe butcher suffers a psychotic break and turns on the people.",
+		"effect": func(): overworld_people = max(0, overworld_people - 5)
+	}
 ]
+
 
 
 func _on_resourcetimer_timeout() -> void:

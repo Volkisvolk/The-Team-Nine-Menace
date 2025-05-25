@@ -373,6 +373,7 @@ func food_tick():
 		if modifier > organic:
 			modifier = organic
 		add_food(modifier)
+		add_organic(-modifier)
 	pass
 	
 func drug_tick():

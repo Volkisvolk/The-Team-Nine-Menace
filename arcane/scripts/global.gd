@@ -254,6 +254,9 @@ func updateUI():
 	$"Node2D/Static UI/Panel/Stats/statsUnder/chemic/chemic/chemtxt".text=str(chemical)
 	$"Node2D/Static UI/Panel/Stats/statsUnder/drug/drug/drugtxt".text=str(drug)
 	$"Node2D/Static UI/Panel/Stats/statsUnder/trash/trash/trashtxt".text=str(trash)
+	
+	
+	$Node2D/Camera2D/Clock._update_ui()
 	pass
 
 func calculate_population():

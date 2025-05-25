@@ -84,7 +84,7 @@ func _on_build_dialog_confirmed():
 				buildingLayer.set_cell(pos, 0, Vector2i(6, 6))  # Beispiel-Kachel
 				data["built_tiles"].append(pos)
 			data["levels"][clickedTile] = rootNode.startLevel
-			show_build_info(selected_building_type, clickedTile)
+			rootNode.spend_gold(data["upgradeCosts"][0])
 		else:
 			print("Ein Teil des 3x3-Felds ist schon bebaut.")
 	else:
@@ -106,11 +106,16 @@ func show_build_info(gebaeude_typ: String, tile: Vector2i) -> void:
 
 
 func _on_upgrade_button_pressed():
+	
 	if selected_building_type in rootNode.buildable_tiles:
 		var data = rootNode.buildable_tiles[selected_building_type]
 		if current_center_tile in data["levels"]:
+			var level = data["levels"].get(current_center_tile, 1)
 			data["levels"][current_center_tile] += 1
 			levelLabel.text = "Level: " + str(data["levels"][current_center_tile])
+			print("Gold vor Upgrade " + str(rootNode.gold))
+			rootNode.spend_gold(data["upgradeCosts"][level])
+			print("Gold nach Upgrade " + str(rootNode.gold))
 			emit_signal("upgrade_building", selected_building_type, data["levels"][current_center_tile])
 		else:
 			print("Kein Level-Eintrag für:", current_center_tile)

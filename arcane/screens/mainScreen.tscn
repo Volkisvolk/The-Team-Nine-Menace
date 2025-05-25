@@ -2543,7 +2543,7 @@ offset_left = 92.0
 offset_top = 195.0
 offset_right = 132.0
 offset_bottom = 218.0
-text = "Farm"
+text = "Butcher"
 
 [node name="Label12" type="Label" parent="."]
 offset_left = 177.0

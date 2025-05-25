@@ -64,7 +64,13 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func open_build_dialog(center: Vector2i, gebaeude_typ: String) -> void:
 	clickedTile = center
-	buildDialog.dialog_text = "Auf 3x3-Feld um " + str(center) + " ein " + gebaeude_typ.capitalize() + " bauen?"
+
+	if gebaeude_typ in rootNode.buildable_tiles:
+		var cost = rootNode.buildable_tiles[gebaeude_typ]["upgradeCosts"][0]
+		buildDialog.dialog_text = "Hier ein " + gebaeude_typ.capitalize() + " für " + str(cost) + " Gold bauen?"
+	else:
+		buildDialog.dialog_text = "Gebäudetyp nicht gefunden: " + gebaeude_typ
+
 	buildDialog.popup_centered()
 
 
@@ -72,6 +78,11 @@ func _on_build_dialog_confirmed():
 	if selected_building_type in rootNode.buildable_tiles:
 		var data = rootNode.buildable_tiles[selected_building_type]
 		var area = get_3x3_area(clickedTile)
+		var build_cost = data["upgradeCosts"][0]
+
+		if rootNode.gold < build_cost:
+			print("Nicht genug Gold zum Bauen!")
+			return
 
 		var area_is_free := true
 		for pos in area:
@@ -84,36 +95,25 @@ func _on_build_dialog_confirmed():
 				data["built_tiles"].append(pos)
 				# Nur das Zentrum bekommt eine sichtbare Kachel
 				if pos == clickedTile:
-					if selected_building_type == "Farm":
-						buildingLayer.set_cell(pos, 1, Vector2i(0, 0))  # Apartment-Zentrum
-					elif selected_building_type == "Butcher":
-						buildingLayer.set_cell(pos, 1, Vector2i(3, 0))  # Standard-Zentrum
-					elif selected_building_type == "Hospital":
-						buildingLayer.set_cell(pos, 1, Vector2i(7, 0))
-					elif selected_building_type == "Sickbay":
-						buildingLayer.set_cell(pos, 1, Vector2i(7, 0))  # Standard-Zentrum
-					elif selected_building_type == "Apartment":
-						buildingLayer.set_cell(pos, 6, Vector2i(0, 0)) 
-					elif selected_building_type == "Hut":
-						buildingLayer.set_cell(pos, 7, Vector2i(0, 0)) 
-					elif selected_building_type == "Mine":
-						buildingLayer.set_cell(pos, 12, Vector2i(0, 0)) 
-					elif selected_building_type == "Lab":
-						buildingLayer.set_cell(pos, 9, Vector2i(0, 0)) 
-					elif selected_building_type == "Dump":
-						buildingLayer.set_cell(pos, 8, Vector2i(0, 0)) 
-					elif selected_building_type == "Overworld":
-						buildingLayer.set_cell(pos, 15, Vector2i(0, 0)) 
-					elif selected_building_type == "Underworld":
-						buildingLayer.set_cell(pos, 16, Vector2i(0, 0)) 
-						
+					match selected_building_type:
+						"Farm":        buildingLayer.set_cell(pos, 1, Vector2i(0, 0))
+						"Butcher":     buildingLayer.set_cell(pos, 1, Vector2i(3, 0))
+						"Hospital":    buildingLayer.set_cell(pos, 1, Vector2i(7, 0))
+						"Sickbay":     buildingLayer.set_cell(pos, 1, Vector2i(7, 0))
+						"Apartment":   buildingLayer.set_cell(pos, 6, Vector2i(0, 0))
+						"Hut":         buildingLayer.set_cell(pos, 7, Vector2i(0, 0))
+						"Mine":        buildingLayer.set_cell(pos, 12, Vector2i(0, 0))
+						"Lab":         buildingLayer.set_cell(pos, 9, Vector2i(0, 0))
+						"Dump":        buildingLayer.set_cell(pos, 8, Vector2i(0, 0))
+						"Overworld":   buildingLayer.set_cell(pos, 15, Vector2i(0, 0))
+						"Underworld":  buildingLayer.set_cell(pos, 16, Vector2i(0, 0))
 
 			data["levels"][clickedTile] = rootNode.startLevel + 1
-			rootNode.spend_gold(data["upgradeCosts"][0])
-			
+			rootNode.spend_gold(build_cost)
+
 			if selected_building_type == "Hut":
 				rootNode.underworld_people_max += 5
-			if selected_building_type == "Apartment":
+			elif selected_building_type == "Apartment":
 				rootNode.overworld_people_max += 5
 		else:
 			print("Ein Teil des 3x3-Felds ist schon bebaut.")

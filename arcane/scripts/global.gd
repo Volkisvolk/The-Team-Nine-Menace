@@ -37,12 +37,11 @@ var buildable_tiles := {
 			Vector2i(-7,-13),
 			Vector2i(-7,-19),
 			Vector2i(-25,-19),
-			Vector2i(-18,-22)
 			
 		],
 		"built_tiles": [],
 		"levels": { },
-		"upgradeCosts":  [10,10,20,50,200,500,1000],
+		"upgradeCosts":  [50,10,20,50,200,500,1000],
 		},
 	"Hut": {
 		"centers": [
@@ -54,7 +53,7 @@ var buildable_tiles := {
 		],
 		"built_tiles": [],
 		"levels": { },
-		"upgradeCosts":  [10,10,20,50,200,500,1000],
+		"upgradeCosts":  [50,10,20,50,200,500,1000],
 		},
 	"Hospital": {
 		"centers": [
@@ -63,7 +62,7 @@ var buildable_tiles := {
 		],
 		"built_tiles": [],
 		"levels": { },
-		"upgradeCosts":  [10,10,20,50,200,500,1000],
+		"upgradeCosts":  [50,10,20,50,200,500,1000],
 		},
 	"Sickbay": {
 		"centers": [
@@ -72,7 +71,7 @@ var buildable_tiles := {
 		],
 		"built_tiles": [],
 		"levels": { },
-		"upgradeCosts":  [10,10,20,50,200,500,1000],
+		"upgradeCosts":  [50,10,20,50,200,500,1000],
 		},
 	"Farm": {
 		"centers": [
@@ -83,7 +82,7 @@ var buildable_tiles := {
 		],
 		"built_tiles": [],
 		"levels": { },
-		"upgradeCosts":  [10,10,20,50,200,500,1000],
+		"upgradeCosts":  [50,10,20,50,200,500,1000],
 		},
 	"Butcher": {
 		"centers": [
@@ -95,7 +94,7 @@ var buildable_tiles := {
 		],
 		"built_tiles": [],
 		"levels": { },
-		"upgradeCosts":  [10,10,20,50,200,500,1000],
+		"upgradeCosts":  [50,10,20,50,200,500,1000],
 		},
 	"Mine": {
 		"centers": [Vector2i(77,81),Vector2i(64,84),Vector2i(64,75),
@@ -103,7 +102,7 @@ var buildable_tiles := {
 		],
 		"built_tiles": [],
 		"levels": { },
-		"upgradeCosts":  [10,10,20,50,200,500,1000],
+		"upgradeCosts":  [50,10,20,50,200,500,1000],
 		},
 	"Lab": {
 		"centers": [Vector2i(79,63),Vector2i(67,63),Vector2i(65,41),
@@ -112,7 +111,7 @@ var buildable_tiles := {
 		],
 		"built_tiles": [],
 		"levels": { },
-		"upgradeCosts":  [10,10,20,50,200,500,1000],
+		"upgradeCosts":  [50,10,20,50,200,500,1000],
 		},
 	"Dump": {
 		"centers": [Vector2i(53,43),Vector2i(39,60),
@@ -121,16 +120,16 @@ var buildable_tiles := {
 		],
 		"built_tiles": [],
 		"levels": { },
-		"upgradeCosts":  [10,10,20,50,200,500,1000],
+		"upgradeCosts":  [50,10,20,50,200,500,1000],
 		},
 	"Overworld": {
 		"centers": [
-			Vector2i(-22,-1),
+			Vector2i(-17,-22),
 			
 		],
 		"built_tiles": [],
 		"levels": { },
-		"upgradeCosts":  [10,10,20,50,200,500,1000],
+		"upgradeCosts":  [50,10,20,50,200,500,1000],
 		},
 	"Underworld": {
 		"centers": [Vector2i(50,54),
@@ -139,7 +138,7 @@ var buildable_tiles := {
 		],
 		"built_tiles": [],
 		"levels": { },
-		"upgradeCosts":  [10,10,20,50,200,500,1000],
+		"upgradeCosts":  [50,10,20,50,200,500,1000],
 		},
 	}
 
@@ -459,28 +458,28 @@ func sickbay_tick():
 	
 func dump_tick():
 	if buildable_tiles["Dump"]["levels"].is_empty():
-		return
+		return  # Kein aktiver Dump gebaut
 
 	var total_reduction := 0
 
 	for level in buildable_tiles["Dump"]["levels"].values():
-		match str(level):
-			"0":
-				total_reduction += 5
-			"1":
+		match int(level):
+			0:
+				total_reduction += 1
+			1:
 				total_reduction += 15
-			"2":
+			2:
 				total_reduction += 30
-			"3":
+			3:
 				total_reduction += 60
-			"4":
+			4:
 				total_reduction += 80
 			_:
-				total_reduction += 150  # Default für Level 5+
+				total_reduction += 150  # Für Level 5+
 
-	# Reduziere Trash, aber nicht unter 0
 	trash = max(0, trash - total_reduction)
-	print("Müll reduziert um:", total_reduction, " → Neuer Stand:", trash)
+	print("🗑️ Müll reduziert um:", total_reduction, " → Neuer Stand:", trash)
+
 
 	
 

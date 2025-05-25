@@ -243,7 +243,7 @@ func updateUI():
 
 func calculate_population():
 	if not buildable_tiles["Apartment"]["levels"].is_empty():
-		var new_people
+		var new_people = 0
 		for elem in buildable_tiles["Apartment"]["levels"]:
 			match elem:
 				"0":
@@ -260,7 +260,7 @@ func calculate_population():
 			
 		print("yo")
 	if not buildable_tiles["Hut"]["levels"].is_empty():
-		var new_people
+		var new_people = 0
 		for elem in buildable_tiles["Hut"]["levels"]:
 			match elem:
 				"0":

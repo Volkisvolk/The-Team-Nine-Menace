@@ -17,10 +17,13 @@ var underworld_people_max : int
 var underworld_sick : int
 var mood_underworld : int
 var trash : int
+var pollution : int
 
 var daycounter: int
 var startLevel :int
 var startUpgradeCost :int
+
+
 # Buildings in Overworld: Farm, Butcher, Overworld City Hall, Apartments, Hospital
 
 # Buildings in Underworld: Mine, Underground Lab, Underworld City Hall, Huts, Sickbay, Dump
@@ -29,9 +32,11 @@ var startUpgradeCost :int
 var buildable_tiles := {
 	"Apartment": {
 		"centers": [
-			Vector2i(-4,10),
-			Vector2i(-4,6),
-			Vector2i(-4,2)
+			Vector2i(-7,-7),
+			Vector2i(-7,-13),
+			Vector2i(-7,-19),
+			Vector2i(-25,-19),
+			Vector2i(-18,-22)
 			
 		],
 		"built_tiles": [],
@@ -51,9 +56,7 @@ var buildable_tiles := {
 		},
 	"Hospital": {
 		"centers": [
-			Vector2i(-10,10),
-			Vector2i(-10,6),
-			Vector2i(-10,2)
+			Vector2i(-13,10),
 			
 		],
 		"built_tiles": [],
@@ -73,9 +76,9 @@ var buildable_tiles := {
 		},
 	"Farm": {
 		"centers": [
-			Vector2i(-2,10),
-			Vector2i(-2,6),
-			Vector2i(-2,2)
+			Vector2i(-4,11),
+			Vector2i(-4,5),
+			Vector2i(-1,-25),Vector2i(20,9)
 			
 		],
 		"built_tiles": [],
@@ -84,9 +87,10 @@ var buildable_tiles := {
 		},
 	"Butcher": {
 		"centers": [
-			Vector2i(-10,10),
-			Vector2i(-4,6),
-			Vector2i(-4,2)
+			Vector2i(5,-7),
+			Vector2i(4,-13),
+			Vector2i(4,-18),
+			Vector2i(12,6),
 			
 		],
 		"built_tiles": [],
@@ -128,9 +132,7 @@ var buildable_tiles := {
 		},
 	"Overworld": {
 		"centers": [
-			Vector2i(-10,10),
-			Vector2i(-4,6),
-			Vector2i(-4,2)
+			Vector2i(-22,-1),
 			
 		],
 		"built_tiles": [],
@@ -153,11 +155,11 @@ var buildable_tiles := {
 func _ready() -> void:
 	startLevel = 0
 	startUpgradeCost = 1
-	gold = 100
+	gold = 10000
 	organic = 0
 	food = 5
-	chemical = 0
-	drug = 5
+	chemical = 100
+	drug = 10000
 	overworld_people = 10
 	overworld_people_max = 15
 	underworld_people = 10
@@ -213,18 +215,22 @@ func consume():
 	print(str(food) + " food/ " + str(drug) + " drug")
 	if(food >= overworld_people):
 		food -= overworld_people
+		mood_overworld -= 3
 	else:
 		mood_overworld += 5
 	if(food >= underworld_people):
 		food -= underworld_people
+		mood_underworld -= 3
 	else:
 		mood_underworld += 5
 	if(drug >= underworld_people):
 		drug -= underworld_people
+		mood_underworld -= 3
 	else:
 		mood_underworld += 5
 	if(drug >= overworld_people):
 		drug -= overworld_people
+		mood_overworld -=3
 	else:
 		mood_overworld += 5
 	print(mood_overworld)
@@ -288,6 +294,43 @@ func overworld_people_available() -> float:
 
 func underworld_people_available() -> float:
 	return (overworld_people - overworld_sick) / overworld_people
+	
+	
+func pollution_tick():
+	# Konfigurierbare Schwellen
+	var pollution_threshold := 100
+	var trash_pollution_rate := 1  # z. B. 1 Punkt Pollution pro 1 Trash
+
+	# Pollution wächst durch Trash
+	pollution += trash * trash_pollution_rate
+
+	# Mood-Malus bei hoher Pollution
+	if pollution >= pollution_threshold:
+		var mood_penalty := int((pollution - pollution_threshold) * 0.1)  # z. B. -1 Mood je 10 Punkte über Limit
+		mood_overworld += mood_penalty
+		print("Pollution hoch! Stimmung der Oberwelt gesenkt um ", mood_penalty)
+
+	# Pollution begrenzen (optional)
+	pollution = clamp(pollution, 0, 500)
+	
+	
+func pollution_infect_tick():
+	var pollution_threshold := 10
+	var max_sick_per_tick := 5  # Begrenzung pro Tick
+	
+	# Wenn Pollution zu hoch ist, beginne Infektion
+	if pollution >= pollution_threshold:
+		var excess_pollution := pollution - pollution_threshold
+
+		# z. B. 1 zusätzliche Krankheit pro 20 Pollution über dem Limit
+		var new_sick := int(excess_pollution / 20.0)
+
+		# Begrenzen, damit nicht zu viele auf einmal krank werden
+		new_sick = clamp(new_sick, 0, max_sick_per_tick)
+
+		print("Neue Kranke durch Pollution:", new_sick, " → Gesamt:", overworld_sick)
+
+
 
 func organic_tick():
 	if not buildable_tiles["Farm"]["levels"].is_empty():
@@ -298,15 +341,17 @@ func organic_tick():
 					modifier += 2
 				"1":
 					modifier += 20
+					trash += 5
 				"2":
 					modifier += 40	
+					trash += 10
 		
 		add_organic(int(modifier * overworld_people_available()))
 		
 	pass
 	
 func food_tick():
-	if buildable_tiles["Butcher"]["levels"].is_empty():
+	if not buildable_tiles["Butcher"]["levels"].is_empty():
 		var modifier = 1
 		for elem in buildable_tiles["Butcher"]["levels"]:
 			match elem:
@@ -314,16 +359,18 @@ func food_tick():
 					modifier += 2
 				"1":
 					modifier += 20
+					trash += 5
 				"2":
 					modifier += 40	
+					trash += 10
 		modifier *= int(overworld_people_available())
 		if modifier > organic:
 			modifier = organic
-		add_organic(modifier)
+		add_food(modifier)
 	pass
 	
 func drug_tick():
-	if buildable_tiles["Lab"]["levels"].is_empty():
+	if not buildable_tiles["Lab"]["levels"].is_empty():
 		var modifier = 1
 		for elem in buildable_tiles["Lab"]["levels"]:
 			match elem:
@@ -331,8 +378,10 @@ func drug_tick():
 					modifier += 2
 				"1":
 					modifier += 20
+					pollution += 1
 				"2":
 					modifier += 40	
+					pollution += 2
 		modifier *= int(underworld_people_available())
 		if modifier > chemical:
 			modifier = chemical
@@ -349,8 +398,10 @@ func chemical_tick():
 					modifier += 2
 				"1":
 					modifier += 20
+					pollution += 1
 				"2":
 					modifier += 40	
+					pollution += 2
 
 		add_chemical(int(modifier * underworld_people_available()))
 		
@@ -392,8 +443,29 @@ func sickbay_tick():
 	
 func dump_tick():
 	if buildable_tiles["Dump"]["levels"].is_empty():
-		pass
-	pass
+		return
+
+	var total_reduction := 0
+
+	for level in buildable_tiles["Dump"]["levels"].values():
+		match str(level):
+			"0":
+				total_reduction += 5
+			"1":
+				total_reduction += 15
+			"2":
+				total_reduction += 30
+			"3":
+				total_reduction += 60
+			"4":
+				total_reduction += 80
+			_:
+				total_reduction += 150  # Default für Level 5+
+
+	# Reduziere Trash, aber nicht unter 0
+	trash = max(0, trash - total_reduction)
+	print("Müll reduziert um:", total_reduction, " → Neuer Stand:", trash)
+
 	
 
 func calculate_gold():
@@ -482,6 +554,10 @@ func _on_resourcetimer_timeout() -> void:
 	drug_tick()
 	
 	dump_tick()
+	
+	pollution_tick()
+	
+	pollution_infect_tick()
 	
 	consume()
 	

@@ -484,6 +484,7 @@ func _on_clock_three_day_event() -> void:
 	# Timer pausieren
 	$Node2D/Camera2D/Clock/DayTimer.paused = true
 	$Node2D/Camera2D/Clock/UpdateTimer.paused = true
+	$Node2D/Camera2D/Clock/ResourceTimer.paused = true
 
 	var card1 = card_pool.pick_random()
 	var card2 = card_pool.pick_random()
@@ -518,6 +519,7 @@ func _on_clock_three_day_event() -> void:
 func resume_timers():
 	$Node2D/Camera2D/Clock/DayTimer.paused = false
 	$"Node2D/Camera2D/Clock/UpdateTimer".paused = false
+	$Node2D/Camera2D/Clock/ResourceTimer.paused = false
 
 #TODO vlt noch Grafik oder so einfügen 
 var card_pool = [

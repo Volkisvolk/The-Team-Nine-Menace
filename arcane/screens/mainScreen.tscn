@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=4 uid="uid://c2l8upswfsi82"]
+[gd_scene load_steps=65 format=4 uid="uid://c2l8upswfsi82"]
 
 [ext_resource type="Script" uid="uid://nhjucnigdqjd" path="res://scripts/global.gd" id="1_gq31x"]
 [ext_resource type="Texture2D" uid="uid://bflg2yef1v4n4" path="res://assets/isometric tileset/spritesheet.png" id="1_xw2hw"]
@@ -30,8 +30,8 @@
 [ext_resource type="Texture2D" uid="uid://dnyp75t540nk4" path="res://assets/pet/house_overworld.png" id="14_iymql"]
 [ext_resource type="Texture2D" uid="uid://dsp52ydv08327" path="res://assets/images/UI/pill_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" id="14_sls1w"]
 [ext_resource type="Texture2D" uid="uid://x5vvkjg3b2n0" path="res://assets/images/UI/delete_450dp_E3E3E3_FILL0_wght400_GRAD0_opsz48.png" id="15_a0sa1"]
-[ext_resource type="PackedScene" uid="uid://brtirw5p130qx" path="res://screens/endScreen.tscn" id="16_4rpei"]
 [ext_resource type="Texture2D" uid="uid://ckmuytn2ki7r8" path="res://assets/pet/house_underworld.png" id="15_kxe57"]
+[ext_resource type="PackedScene" uid="uid://brtirw5p130qx" path="res://screens/endScreen.tscn" id="16_4rpei"]
 [ext_resource type="Texture2D" uid="uid://b2e87a4sqwt67" path="res://assets/pet/junkyard.png" id="16_7i1yu"]
 [ext_resource type="Texture2D" uid="uid://cyohqelmnvffv" path="res://assets/pet/lab_lvl1.png" id="17_unfgi"]
 

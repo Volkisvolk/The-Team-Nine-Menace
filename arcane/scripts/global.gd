@@ -42,7 +42,7 @@ var buildable_tiles := {
 		],
 		"built_tiles": [],
 		"levels": { },
-		"upgradeCosts":  [10,10,20,50,200,500,1000],
+		"upgradeCosts":  [50,10,20,50,200,500,1000],
 		},
 	"Hut": {
 		"centers": [
@@ -54,7 +54,7 @@ var buildable_tiles := {
 		],
 		"built_tiles": [],
 		"levels": { },
-		"upgradeCosts":  [10,10,20,50,200,500,1000],
+		"upgradeCosts":  [50,10,20,50,200,500,1000],
 		},
 	"Hospital": {
 		"centers": [
@@ -63,7 +63,7 @@ var buildable_tiles := {
 		],
 		"built_tiles": [],
 		"levels": { },
-		"upgradeCosts":  [10,10,20,50,200,500,1000],
+		"upgradeCosts":  [50,10,20,50,200,500,1000],
 		},
 	"Sickbay": {
 		"centers": [
@@ -72,7 +72,7 @@ var buildable_tiles := {
 		],
 		"built_tiles": [],
 		"levels": { },
-		"upgradeCosts":  [10,10,20,50,200,500,1000],
+		"upgradeCosts":  [50,10,20,50,200,500,1000],
 		},
 	"Farm": {
 		"centers": [
@@ -83,7 +83,7 @@ var buildable_tiles := {
 		],
 		"built_tiles": [],
 		"levels": { },
-		"upgradeCosts":  [10,10,20,50,200,500,1000],
+		"upgradeCosts":  [50,10,20,50,200,500,1000],
 		},
 	"Butcher": {
 		"centers": [
@@ -95,7 +95,7 @@ var buildable_tiles := {
 		],
 		"built_tiles": [],
 		"levels": { },
-		"upgradeCosts":  [10,10,20,50,200,500,1000],
+		"upgradeCosts":  [50,10,20,50,200,500,1000],
 		},
 	"Mine": {
 		"centers": [Vector2i(77,81),Vector2i(64,84),Vector2i(64,75),
@@ -103,7 +103,7 @@ var buildable_tiles := {
 		],
 		"built_tiles": [],
 		"levels": { },
-		"upgradeCosts":  [10,10,20,50,200,500,1000],
+		"upgradeCosts":  [50,10,20,50,200,500,1000],
 		},
 	"Lab": {
 		"centers": [Vector2i(79,63),Vector2i(67,63),Vector2i(65,41),
@@ -112,7 +112,7 @@ var buildable_tiles := {
 		],
 		"built_tiles": [],
 		"levels": { },
-		"upgradeCosts":  [10,10,20,50,200,500,1000],
+		"upgradeCosts":  [50,10,20,50,200,500,1000],
 		},
 	"Dump": {
 		"centers": [Vector2i(53,43),Vector2i(39,60),
@@ -121,7 +121,7 @@ var buildable_tiles := {
 		],
 		"built_tiles": [],
 		"levels": { },
-		"upgradeCosts":  [10,10,20,50,200,500,1000],
+		"upgradeCosts":  [50,10,20,50,200,500,1000],
 		},
 	"Overworld": {
 		"centers": [
@@ -130,7 +130,7 @@ var buildable_tiles := {
 		],
 		"built_tiles": [],
 		"levels": { },
-		"upgradeCosts":  [10,10,20,50,200,500,1000],
+		"upgradeCosts":  [50,10,20,50,200,500,1000],
 		},
 	"Underworld": {
 		"centers": [Vector2i(50,54),
@@ -139,7 +139,7 @@ var buildable_tiles := {
 		],
 		"built_tiles": [],
 		"levels": { },
-		"upgradeCosts":  [10,10,20,50,200,500,1000],
+		"upgradeCosts":  [50,10,20,50,200,500,1000],
 		},
 	}
 

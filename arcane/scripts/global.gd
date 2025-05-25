@@ -37,7 +37,6 @@ var buildable_tiles := {
 			Vector2i(-7,-13),
 			Vector2i(-7,-19),
 			Vector2i(-25,-19),
-			Vector2i(-18,-22)
 			
 		],
 		"built_tiles": [],
@@ -125,7 +124,7 @@ var buildable_tiles := {
 		},
 	"Overworld": {
 		"centers": [
-			Vector2i(-22,-1),
+			Vector2i(-17,-22),
 			
 		],
 		"built_tiles": [],

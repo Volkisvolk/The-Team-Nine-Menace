@@ -2,6 +2,7 @@ extends Node
 @export var gold : int
 
 
+
 var organic : int
 var food : int
 var overworld_people : int
@@ -235,8 +236,6 @@ func consume():
 		mood_overworld += 5
 	print(mood_overworld)
 	print(mood_underworld)
-	if(mood_overworld >= 100 && mood_underworld >= 100):
-			get_tree().change_scene_to_file("res://screens/endScreen.tscn")
 
 
 func updateUI():
@@ -255,7 +254,7 @@ func updateUI():
 	$"Node2D/Static UI/Panel/Stats/statsUnder/drug/drug/drugtxt".text=str(drug)
 	$"Node2D/Static UI/Panel/Stats/statsUnder/trash/trash/trashtxt".text=str(trash)
 	
-	
+	$"Node2D/Static UI/Panel/Stats/Control/Button".update_mood_pointer()
 	$Node2D/Camera2D/Clock._update_ui()
 	pass
 
@@ -625,6 +624,46 @@ var card_pool = [
 	}
 ]
 
+func end_game(reason: String, is_win: bool):
+	# Timer pausieren
+	print("Spiel beendet:", reason, "Win:", is_win)  # <- Debug
+
+	$Node2D/Camera2D/Clock/DayTimer.paused = true
+	$Node2D/Camera2D/Clock/UpdateTimer.paused = true
+	$Node2D/Camera2D/Clock/ResourceTimer.paused = true
+
+	# Endscreen anzeigen
+	var screen = $Node2D/Camera2D/endScreen
+	screen.show_end(reason, is_win)
+
+
+
+func check_end_conditions():
+	var combined_mood = mood_underworld + mood_overworld
+
+	# Lose: Bevölkerung = 0
+	if overworld_people <= 0:
+		end_game("Alle Bewohner der Oberwelt sind gestorben.", false)
+	elif underworld_people <= 0:
+		end_game("Alle Bewohner der Unterwelt sind gestorben.", false)
+	
+	# Lose: Irgendeine Mood = 100
+	elif mood_overworld >= 100:
+		end_game("Die Stimmung in der Oberwelt ist katastrophal.", false)
+	elif mood_underworld >= 100:
+		end_game("Die Stimmung in der Unterwelt ist katastrophal.", false)
+	
+	# Lose: Tag 14, beide Moods > 100
+	elif daycounter >= 14 and combined_mood > 100:
+		end_game("An Tag 14 ist die allgemeine Stimmung sehr schlecht.", false)
+	
+	# Win: Tag 14, beide Moods < 100
+	elif daycounter >= 14 and combined_mood < 100:
+		end_game("An Tag 14 konntet ihr beide Welten zufriedenstellen.", true)
+	
+	# Win: Beide Moods < 10 (egal wann)
+	elif mood_overworld < 10 and mood_underworld < 10:
+		end_game("Beide Welten sind sehr glücklich!", true)
 
 
 func _on_resourcetimer_timeout() -> void:
@@ -655,4 +694,6 @@ func _on_resourcetimer_timeout() -> void:
 	consume()
 	
 	updateUI()
+	check_end_conditions()
+
 	pass # Replace with function body.

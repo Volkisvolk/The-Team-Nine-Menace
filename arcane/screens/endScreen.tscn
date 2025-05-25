@@ -1,3 +1,38 @@
-[gd_scene format=3 uid="uid://brtirw5p130qx"]
+[gd_scene load_steps=2 format=3 uid="uid://brtirw5p130qx"]
 
-[node name="EndScreen" type="Node2D"]
+[ext_resource type="Script" uid="uid://ckec0ciiawbhx" path="res://scripts/end_screen.gd" id="1_1y1ks"]
+
+[node name="endScreen" type="CanvasLayer"]
+script = ExtResource("1_1y1ks")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1087.0
+offset_bottom = 638.0
+color = Color(0.18359, 0.18359, 0.18359, 0.7)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_right = 1087.0
+offset_bottom = 638.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
+text = "WIN/loose"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ReasonLabel" type="Label" parent="VBoxContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+theme_override_font_sizes/font_size = 80
+text = "Grund"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="MainMenuButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Main Menu"

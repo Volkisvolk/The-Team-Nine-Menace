@@ -14,6 +14,7 @@ var toload = true
 
 func _ready():
 	update_mood_pointer()
+	$AnimationPlayer.play("slide_right")
 
 func _process(delta):
 	if toload:
@@ -24,10 +25,14 @@ func _on_button_pressed() -> void:
 	if worldChangeBool:
 		#camera.position = Vector2(0, 972)
 		camera.get_node("AnimationPlayer").play("toUnder")
+		$AnimationPlayer.play("slide_left")
+
 		worldChangeBool = false
 	else:
 		#camera.position = Vector2(0.0, 0.0)
 		camera.get_node("AnimationPlayer").play("toOver")
+		$AnimationPlayer.play("slide_right")
+		
 		worldChangeBool = true
 
 	update_mood_pointer()
@@ -51,7 +56,4 @@ func update_mood_pointer():
 
 	$MoodCover/CoverLabel.text = "Underworld" if worldChangeBool else "Overworld"
 
-	if worldChangeBool:
-		$AnimationPlayer.play("slide_right")
-	else:
-		$AnimationPlayer.play("slide_left")
+		

@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=4 uid="uid://c2l8upswfsi82"]
+[gd_scene load_steps=37 format=4 uid="uid://c2l8upswfsi82"]
 
 [ext_resource type="Script" uid="uid://nhjucnigdqjd" path="res://scripts/global.gd" id="1_gq31x"]
 [ext_resource type="Texture2D" uid="uid://bflg2yef1v4n4" path="res://assets/isometric tileset/spritesheet.png" id="1_xw2hw"]
@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://d3w3er73c7s55" path="res://assets/images/UI/labs_450dp_E3E3E3_FILL0_wght400_GRAD0_opsz48.png" id="13_4rpei"]
 [ext_resource type="Texture2D" uid="uid://dsp52ydv08327" path="res://assets/images/UI/pill_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" id="14_sls1w"]
 [ext_resource type="Texture2D" uid="uid://x5vvkjg3b2n0" path="res://assets/images/UI/delete_450dp_E3E3E3_FILL0_wght400_GRAD0_opsz48.png" id="15_a0sa1"]
+[ext_resource type="PackedScene" uid="uid://brtirw5p130qx" path="res://screens/endScreen.tscn" id="16_4rpei"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gq31x"]
 texture = ExtResource("1_xw2hw")
@@ -1996,6 +1997,11 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Camera2D" type="Camera2D" parent="Node2D"]
+
+[node name="endScreen" parent="Node2D/Camera2D" instance=ExtResource("16_4rpei")]
+visible = false
+offset = Vector2(400, 200)
+transform = Transform2D(1, 0, 0, 1, 400, 200)
 
 [node name="Clock" type="Node2D" parent="Node2D/Camera2D"]
 position = Vector2(-896, 10)

@@ -242,13 +242,13 @@ func consume():
 	print(mood_underworld)
 
 func updateUI():
-	$"Node2D/Static UI/Panel/Stats/statsOver/organictxt".text= str(organic)
-	$"Node2D/Static UI/Panel/Stats/statsOver/foodtxt".text=str(food)
-	$"Node2D/Static UI/Panel/Stats/statsOver/populationovertxt".text=str(overworld_people)
+	$"Node2D/Static UI/Panel/Stats/statsOver/HBoxContainer/organictxt".text= str(organic)
+	$"Node2D/Static UI/Panel/Stats/statsOver/HBoxContainer2/foodtxt".text=str(food)
+	#$"Node2D/Static UI/Panel/Stats/statsOver/populationovertxt".text=str(overworld_people)
 
 	$"Node2D/Static UI/Panel/Stats/statsUnder/chemic".text=str(chemical)
 	$"Node2D/Static UI/Panel/Stats/statsUnder/drugs".text=str(drug)
-	$"Node2D/Static UI/Panel/Stats/statsUnder/populationundertxt".text=str(underworld_people)
+	#$"Node2D/Static UI/Panel/Stats/statsUnder/populationundertxt".text=str(underworld_people)
 
 	pass
 
@@ -417,8 +417,8 @@ func _on_clock_three_day_event() -> void:
 	
 	
 func resume_timers():
-	$"Node2D/Static UI/Panel/Stats/Clock/DayTimer".paused = false
-	$"Node2D/Static UI/Panel/Stats/Clock/UpdateTimer".paused = false
+	$Node2D/Camera2D/Clock/DayTimer.paused = false
+	$"Node2D/Camera2D/Clock/UpdateTimer".paused = false
 
 #TODO vlt noch Grafik oder so einfügen 
 var card_pool = [

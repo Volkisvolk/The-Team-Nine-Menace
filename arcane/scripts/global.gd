@@ -41,7 +41,7 @@ var buildable_tiles := {
 		],
 		"built_tiles": [],
 		"levels": { },
-		"upgradeCosts":  [50,10,20,50,200,500,1000],
+		"upgradeCosts":  [50,100,200,500,2000,5000,10000],
 		},
 	"Hut": {
 		"centers": [
@@ -53,7 +53,7 @@ var buildable_tiles := {
 		],
 		"built_tiles": [],
 		"levels": { },
-		"upgradeCosts":  [50,10,20,50,200,500,1000],
+		"upgradeCosts":  [50,100,200,500,2000,5000],
 		},
 	"Hospital": {
 		"centers": [
@@ -62,7 +62,7 @@ var buildable_tiles := {
 		],
 		"built_tiles": [],
 		"levels": { },
-		"upgradeCosts":  [50,10,20,50,200,500,1000],
+		"upgradeCosts":  [50,100,200,500,2000,5000],
 		},
 	"Sickbay": {
 		"centers": [
@@ -71,7 +71,7 @@ var buildable_tiles := {
 		],
 		"built_tiles": [],
 		"levels": { },
-		"upgradeCosts":  [50,10,20,50,200,500,1000],
+		"upgradeCosts":  [50,100,200,500,2000,5000],
 		},
 	"Farm": {
 		"centers": [
@@ -82,7 +82,7 @@ var buildable_tiles := {
 		],
 		"built_tiles": [],
 		"levels": { },
-		"upgradeCosts":  [50,10,20,50,200,500,1000],
+		"upgradeCosts":  [25,50,100,200,500,1000],
 		},
 	"Butcher": {
 		"centers": [
@@ -94,7 +94,7 @@ var buildable_tiles := {
 		],
 		"built_tiles": [],
 		"levels": { },
-		"upgradeCosts":  [50,10,20,50,200,500,1000],
+		"upgradeCosts":  [25,50,100,200,500,1000],
 		},
 	"Mine": {
 		"centers": [Vector2i(77,81),Vector2i(64,84),Vector2i(64,75),
@@ -102,7 +102,7 @@ var buildable_tiles := {
 		],
 		"built_tiles": [],
 		"levels": { },
-		"upgradeCosts":  [50,10,20,50,200,500,1000],
+		"upgradeCosts": [25,50,100,200,500,1000],
 		},
 	"Lab": {
 		"centers": [Vector2i(79,63),Vector2i(67,63),Vector2i(65,41),
@@ -111,7 +111,7 @@ var buildable_tiles := {
 		],
 		"built_tiles": [],
 		"levels": { },
-		"upgradeCosts":  [50,10,20,50,200,500,1000],
+		"upgradeCosts":  [25,50,100,200,500,1000],
 		},
 	"Dump": {
 		"centers": [Vector2i(53,43),Vector2i(39,60),
@@ -129,7 +129,7 @@ var buildable_tiles := {
 		],
 		"built_tiles": [],
 		"levels": { },
-		"upgradeCosts":  [50,10,20,50,200,500,1000],
+		"upgradeCosts":  [50,100,200,50,200,500,1000],
 		},
 	"Underworld": {
 		"centers": [Vector2i(50,54),
@@ -138,24 +138,24 @@ var buildable_tiles := {
 		],
 		"built_tiles": [],
 		"levels": { },
-		"upgradeCosts":  [50,10,20,50,200,500,1000],
+		"upgradeCosts":  [50,100,200,50,200,500,1000],
 		},
 	}
 
 func _ready() -> void:
 	startLevel = 0
 	startUpgradeCost = 1
-	gold = 100
+	gold = 150
 	organic = 0
-	food = 0
+	food = 10
 	chemical = 0
-	drug = 0
+	drug = 10
 	overworld_people = 5
 	overworld_people_max = 5
 	underworld_people = 5
 	underworld_people_max = 5
-	mood_overworld = 0 # mood from 0-100, 100 is shit, 0 is great
-	mood_underworld = 0
+	mood_overworld = 30 # mood from 0-100, 100 is shit, 0 is great
+	mood_underworld = 60
 	overworld_sick = 0
 	underworld_sick = 0
 	updateUI()
@@ -205,22 +205,22 @@ func consume():
 	print(str(food) + " food/ " + str(drug) + " drug")
 	if(food >= overworld_people):
 		food -= overworld_people
-		mood_overworld -= 3
+		mood_overworld -= 1
 	else:
-		mood_overworld += 5
+		mood_overworld += 2
 	if(food >= underworld_people):
 		food -= underworld_people
-		mood_underworld -= 3
+		mood_underworld -= 1
 	else:
-		mood_underworld += 5
+		mood_underworld += 2
 	if(drug >= underworld_people):
 		drug -= underworld_people
-		mood_underworld -= 3
+		mood_underworld -= 1
 	else:
-		mood_underworld += 5
+		mood_underworld += 2
 	if(drug >= overworld_people):
 		drug -= overworld_people
-		mood_overworld -=3
+		mood_overworld -=1
 	else:
 		mood_overworld += 5
 	print(mood_overworld)
@@ -308,6 +308,8 @@ func calculate_population():
 
 
 func overworld_people_available() -> float:
+	if overworld_people - overworld_sick <= 0:
+		overworld_people + 1
 	return (overworld_people - overworld_sick) / overworld_people
 
 func underworld_people_available() -> float:
@@ -356,13 +358,13 @@ func organic_tick():
 		for level in buildable_tiles["Farm"]["levels"].values():
 			match int(level):
 				0:
-					modifier += 2
+					modifier += 1
 				1:
-					modifier += 20
-					trash += 5
+					modifier += 5
+					trash += 2
 				2:
-					modifier += 40	
-					trash += 10
+					modifier += 20	
+					trash += 7
 		add_organic(int(modifier * overworld_people_available()))
 		
 		
@@ -395,15 +397,16 @@ func drug_tick():
 				0:
 					modifier += 2
 				1:
-					modifier += 20
-					pollution += 1
+					modifier += 10
+					pollution += 5
 				2:
 					modifier += 40	
-					pollution += 2
+					pollution += 10
 		modifier *= int(underworld_people_available())
 		if modifier > chemical:
 			modifier = chemical
 		add_drug(modifier)
+		add_chemical(-modifier)
 
 	
 func chemical_tick():
@@ -412,12 +415,12 @@ func chemical_tick():
 		for level in buildable_tiles["Mine"]["levels"].values():
 			match int(level):
 				0:
-					modifier += 2
+					modifier += 1
 				1:
-					modifier += 20
+					modifier += 5
 					pollution += 1
 				2:
-					modifier += 40	
+					modifier += 20	
 					pollution += 2
 		add_chemical(int(modifier * underworld_people_available()))
 
@@ -484,7 +487,7 @@ func dump_tick():
 	
 
 func calculate_gold():
-	gold += overworld_people + underworld_people
+	gold += (overworld_people + underworld_people)/2
 	pass
 
 

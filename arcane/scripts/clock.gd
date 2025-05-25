@@ -13,7 +13,7 @@ func _ready():
 	update_timer.timeout.connect(_on_update_timer_tick)
 	update_timer.start()
 
-	day_timer.wait_time = 60.0
+	day_timer.wait_time = 30.0
 	day_timer.timeout.connect(_on_day_timer_timeout)
 	day_timer.start()
 
@@ -21,7 +21,7 @@ func _ready():
 
 func _on_update_timer_tick():
 	time_passed += update_timer.wait_time		
-	if time_passed > 60.0:
+	if time_passed > 30.0:
 		time_passed = 0.0  # oder hier auf 0 setzen, falls du keinen Drift willst
 	_update_ui()
 
@@ -33,6 +33,6 @@ func _on_day_timer_timeout():
 	_update_ui()
 
 func _update_ui():
-	day_hand.rotation_degrees = time_passed * 6.0 
+	day_hand.rotation_degrees = time_passed * 12.0 
 	day_label.text = "Day %d" % current_day
 	

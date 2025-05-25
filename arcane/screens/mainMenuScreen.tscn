@@ -136,7 +136,23 @@ offset_bottom = 266.0
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("3_gn5r4")
 theme_override_font_sizes/font_size = 200
-text = "Arcane"
+text = "Unity"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -338.0
+offset_top = 233.0
+offset_right = 338.0
+offset_bottom = 430.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("3_gn5r4")
+theme_override_font_sizes/font_size = 60
+text = "a Game in Godot"
 horizontal_alignment = 1
 vertical_alignment = 1
 

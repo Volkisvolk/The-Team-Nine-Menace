@@ -146,17 +146,17 @@ var buildable_tiles := {
 func _ready() -> void:
 	startLevel = 0
 	startUpgradeCost = 1
-	gold = 100
+	gold = 150
 	organic = 0
-	food = 0
+	food = 10
 	chemical = 0
-	drug = 0
+	drug = 10
 	overworld_people = 5
 	overworld_people_max = 5
 	underworld_people = 5
 	underworld_people_max = 5
-	mood_overworld = 0 # mood from 0-100, 100 is shit, 0 is great
-	mood_underworld = 0
+	mood_overworld = 20 # mood from 0-100, 100 is shit, 0 is great
+	mood_underworld = 30
 	overworld_sick = 0
 	underworld_sick = 0
 	updateUI()
@@ -318,7 +318,7 @@ func underworld_people_available() -> float:
 func pollution_tick():
 	# Konfigurierbare Schwellen
 	var pollution_threshold := 100
-	var trash_pollution_rate := 1  # z. B. 1 Punkt Pollution pro 1 Trash
+	var trash_pollution_rate := 0.5  # z. B. 1 Punkt Pollution pro 1 Trash
 
 	# Pollution wächst durch Trash
 	pollution += trash * trash_pollution_rate
@@ -357,13 +357,13 @@ func organic_tick():
 		for level in buildable_tiles["Farm"]["levels"].values():
 			match int(level):
 				0:
-					modifier += 2
+					modifier += 1
 				1:
-					modifier += 20
-					trash += 5
+					modifier += 5
+					trash += 2
 				2:
-					modifier += 40	
-					trash += 10
+					modifier += 20	
+					trash += 7
 		add_organic(int(modifier * overworld_people_available()))
 		
 		
@@ -413,12 +413,12 @@ func chemical_tick():
 		for level in buildable_tiles["Mine"]["levels"].values():
 			match int(level):
 				0:
-					modifier += 2
+					modifier += 1
 				1:
-					modifier += 20
+					modifier += 5
 					pollution += 1
 				2:
-					modifier += 40	
+					modifier += 20	
 					pollution += 2
 		add_chemical(int(modifier * underworld_people_available()))
 
@@ -485,7 +485,7 @@ func dump_tick():
 	
 
 func calculate_gold():
-	gold += overworld_people + underworld_people
+	gold += (overworld_people + underworld_people)/2
 	pass
 
 

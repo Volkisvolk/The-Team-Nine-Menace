@@ -86,7 +86,6 @@ func _on_build_dialog_confirmed():
 				buildingLayer.set_cell(pos, 0, Vector2i(6, 6))  # Beispiel-Kachel
 				data["built_tiles"].append(pos)
 			data["levels"][clickedTile] = rootNode.startLevel
-			data["upgradeCosts"][clickedTile] = rootNode.startUpgradeCost
 			show_build_info(selected_building_type, clickedTile)
 		else:
 			print("Ein Teil des 3x3-Felds ist schon bebaut.")
@@ -102,7 +101,7 @@ func show_build_info(gebaeude_typ: String, tile: Vector2i) -> void:
 		var level = data["levels"].get(tile, 1)
 		levelLabel.text = "Level: " + str(level)
 		#TODO: Placeholder
-		#upgradeCostLabel.text = "Upgrade-Kosten: " + rootNode.upgradeArr[level] + " Gold"
+		upgradeCostLabel.text = "Upgrade-Kosten: " + str(data["upgradeCosts"][level]) + " Gold"
 		buildInfoDialog.popup_centered()
 	else:
 		print("Fehler: Gebäudetyp nicht bekannt für Info-Popup:", gebaeude_typ)

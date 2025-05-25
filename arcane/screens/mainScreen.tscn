@@ -1566,6 +1566,10 @@ position = Vector2(-17, 10)
 scale = Vector2(0.1025, 0.1025)
 texture = ExtResource("3_b1vw7")
 
+[node name="populationovertxt" type="Label" parent="Node2D/Static UI/Panel/Stats/statsOver"]
+layout_mode = 2
+text = "123"
+
 [node name="Clock" type="Node2D" parent="Node2D/Static UI/Panel/Stats"]
 position = Vector2(908, 51)
 script = ExtResource("4_kjt3h")
@@ -1623,6 +1627,10 @@ text = "333"
 position = Vector2(-17, 10)
 scale = Vector2(0.1025, 0.1025)
 texture = ExtResource("5_36ifp")
+
+[node name="populationundertxt" type="Label" parent="Node2D/Static UI/Panel/Stats/statsUnder"]
+layout_mode = 2
+text = "444"
 
 [node name="Button" type="Button" parent="Node2D"]
 offset_left = 657.0
@@ -1757,11 +1765,8 @@ text = "Upgrade"
 [node name="upgradeCost" type="Label" parent="Node2D/buildInfoDialog/VBoxContainer"]
 layout_mode = 2
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 10.0
-autostart = true
-
 [connection signal="three_day_event" from="Node2D/Static UI/Panel/Stats/Clock" to="." method="_on_clock_three_day_event"]
+[connection signal="timeout" from="Node2D/Static UI/Panel/Stats/Clock/DayTimer" to="." method="_on_timer_timeout"]
 [connection signal="pressed" from="Node2D/Button" to="Node2D/board" method="_on_button_pressed"]
 [connection signal="upgrade_building" from="Node2D/board" to="." method="_on_board_upgrade_building"]
 [connection signal="confirmed" from="Node2D/buildDialog" to="Node2D/board" method="_on_build_dialog_confirmed"]

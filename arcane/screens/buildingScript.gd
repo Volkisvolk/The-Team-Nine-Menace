@@ -85,7 +85,7 @@ func _on_build_dialog_confirmed():
 				# Nur das Zentrum bekommt eine sichtbare Kachel
 				if pos == clickedTile:
 					if selected_building_type == "Farm":
-						buildingLayer.set_cell(pos, 1, Vector2i(1, 0))  # Apartment-Zentrum
+						buildingLayer.set_cell(pos, 1, Vector2i(0, 0))  # Apartment-Zentrum
 					elif selected_building_type == "Butcher":
 						buildingLayer.set_cell(pos, 1, Vector2i(3, 0))  # Standard-Zentrum
 					elif selected_building_type == "Hospital":

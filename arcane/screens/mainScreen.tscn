@@ -1946,7 +1946,7 @@ vertical_alignment = 1
 [node name="Camera2D" type="Camera2D" parent="Node2D"]
 
 [node name="Clock" type="Node2D" parent="Node2D/Camera2D"]
-position = Vector2(0, 398)
+position = Vector2(-896, 10)
 script = ExtResource("4_kjt3h")
 
 [node name="ClockFace" type="Sprite2D" parent="Node2D/Camera2D/Clock"]

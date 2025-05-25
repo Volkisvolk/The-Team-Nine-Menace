@@ -1,17 +1,26 @@
 extends Node
 @export var gold : int
+
+
 var organic : int
 var food : int
+var overworld_people : int
+var overworld_people_max : int
+var overworld_sick : int
+var mood_overworld : int
+
+
 var chemical : int
 var drug : int
-var overworld_people : int
 var underworld_people : int
-var mood_overworld : int
+var underworld_people_max : int
+var underworld_sick : int
 var mood_underworld : int
+var trash : int
+
 var daycounter: int
 var startLevel :int
 var startUpgradeCost :int
-
 # Buildings in Overworld: Farm, Butcher, Overworld City Hall, Apartments, Hospital
 
 # Buildings in Underworld: Mine, Underground Lab, Underworld City Hall, Huts, Sickbay, Dump
@@ -27,9 +36,53 @@ var buildable_tiles := {
 		],
 		"built_tiles": [],
 		"levels": { },
-		"upgradeCosts":  {},
+		"upgradeCosts":  [10,20,50,200,500,1000],
 		},
-		"Hospital": {
+	"Hut": {
+		"centers": [
+			Vector2i(60,60),
+			Vector2i(60,64),
+			Vector2i(60,68)
+			
+		],
+		"built_tiles": [],
+		"levels": { },
+		"upgradeCosts":  [100,200,500,1000,2000],
+		},
+	"Hospital": {
+		"centers": [
+			Vector2i(-10,10),
+			Vector2i(-10,6),
+			Vector2i(-10,2)
+			
+		],
+		"built_tiles": [],
+		"levels": { },
+		"upgradeCosts":  [100,200,500,1000,2000],
+		},
+	"Sickbay": {
+		"centers": [
+			Vector2i(64,60),
+			Vector2i(64,64),
+			Vector2i(64,68)
+			
+		],
+		"built_tiles": [],
+		"levels": { },
+		"upgradeCosts":  [100,200,500,1000,2000],
+		},
+	"Farm": {
+		"centers": [
+			Vector2i(-2,10),
+			Vector2i(-2,6),
+			Vector2i(-2,2)
+			
+		],
+		"built_tiles": [],
+		"levels": { },
+		"upgradeCosts":  [100,200,500,1000,2000],
+		},
+	"Butcher": {
 		"centers": [
 			Vector2i(-10,10),
 			Vector2i(-4,6),
@@ -38,58 +91,122 @@ var buildable_tiles := {
 		],
 		"built_tiles": [],
 		"levels": { },
-		"upgradeCosts":  [],
-		}
+		"upgradeCosts":  [100,200,500,1000,2000],
+		},
+	"Mine": {
+		"centers": [
+			Vector2i(-10,10),
+			Vector2i(-4,6),
+			Vector2i(-4,2)
+			
+		],
+		"built_tiles": [],
+		"levels": { },
+		"upgradeCosts":  [100,200,500,1000,2000],
+		},
+	"Lab": {
+		"centers": [
+			Vector2i(-10,10),
+			Vector2i(-4,6),
+			Vector2i(-4,2)
+			
+		],
+		"built_tiles": [],
+		"levels": { },
+		"upgradeCosts":  [100,200,500,1000,2000],
+		},
+	"Dump": {
+		"centers": [
+			Vector2i(-10,10),
+			Vector2i(-4,6),
+			Vector2i(-4,2)
+			
+		],
+		"built_tiles": [],
+		"levels": { },
+		"upgradeCosts":  [100,200,500,1000,2000],
+		},
+	"Overworld": {
+		"centers": [
+			Vector2i(-10,10),
+			Vector2i(-4,6),
+			Vector2i(-4,2)
+			
+		],
+		"built_tiles": [],
+		"levels": { },
+		"upgradeCosts":  [100,200,500,1000,2000],
+		},
+	"Underworld": {
+		"centers": [
+			Vector2i(-10,10),
+			Vector2i(-4,6),
+			Vector2i(-4,2)
+			
+		],
+		"built_tiles": [],
+		"levels": { },
+		"upgradeCosts":  [100,200,500,1000,2000],
+		},
 	}
 
 func _ready() -> void:
-	startLevel = 5
+	startLevel = 0
 	startUpgradeCost = 1
 	gold = 100
 	organic = 0
-	food = 50
+	food = 5
 	chemical = 0
-	drug = 50
+	drug = 5
 	overworld_people = 10
+	overworld_people_max = 15
 	underworld_people = 10
+	underworld_people_max = 15
 	mood_overworld = 50 # mood from 0-100, 100 is shit, 0 is great
 	mood_underworld = 50
+	overworld_sick = 0
+	underworld_sick = 0
 	updateUI()
 
 func add_gold(val):
-	gold += val
+	if val * (-1) <= gold:
+		gold += val
 	
 func add_organic(val):
-	organic += val
+	if val * (-1) <= organic:
+		organic += val
 	
 func add_food(val):
-	food += val
+	if val * (-1) <= food:
+		food += val
 	
 func add_chemical(val):
-	chemical += val
+	if val * (-1) <= chemical:
+		chemical += val
 	
 func add_drug(val):
-	drug += val
+	if val * (-1) <= drug:
+		drug += val
 	
 func add_overworld_people(val):
-	overworld_people += val
+	if val * (-1) <= overworld_people:
+		overworld_people += val
 	
 func add_underworld_people(val):
-	underworld_people += val
+	if val * (-1) <= underworld_people:
+		underworld_people += val
 	
 
-
+# quasi wie update, nur nicht jeden frame
 func _on_timer_timeout() -> void:
-	print("_on_timer_timeout")
-	check_mood()
-	updateUI()
+	print ("wrong update")
 	pass # Replace with function body.
 	
 	
 # checks mood between worlds, and updates if nessecary. 
 # mood gets worse when resources are not supplied
-func check_mood():
-	print("check_mood")
+func consume():
+	print("consume")
 	print(str(food) + " food/ " + str(drug) + " drug")
 	if(food >= overworld_people):
 		food -= overworld_people
@@ -109,32 +226,178 @@ func check_mood():
 		mood_overworld += 5
 	print(mood_overworld)
 	print(mood_underworld)
+	if(mood_overworld >= 100 && mood_underworld >= 100):
+			get_tree().change_scene_to_file("res://screens/endScreen.tscn")
+
 
 func updateUI():
-	$"Node2D/Static UI/Panel/Stats/statsOver/organictxt".text= str(organic)
-	$"Node2D/Static UI/Panel/Stats/statsOver/foodtxt".text=str(food)
+	$"Node2D/Static UI/Panel/Stats/statsOver/HBoxContainer/organictxt".text= str(organic)
+	$"Node2D/Static UI/Panel/Stats/statsOver/HBoxContainer2/foodtxt".text=str(food)
+	#$"Node2D/Static UI/Panel/Stats/statsOver/populationovertxt".text=str(overworld_people)
+
 	$"Node2D/Static UI/Panel/Stats/statsUnder/chemic".text=str(chemical)
 	$"Node2D/Static UI/Panel/Stats/statsUnder/drugs".text=str(drug)
+	#$"Node2D/Static UI/Panel/Stats/statsUnder/populationundertxt".text=str(underworld_people)
+
+	pass
+
+func calculate_population():
+	if not buildable_tiles["Apartment"]["levels"].is_empty():
+		var new_people = 0
+		for elem in buildable_tiles["Apartment"]["levels"]:
+			match elem:
+				"0":
+					new_people += 1
+				"1":
+					new_people += 5
+				"2":
+					new_people += 20
+		if overworld_people < overworld_people_max:
+			
+			overworld_people += new_people
+			if overworld_people > overworld_people_max:
+				overworld_people = overworld_people_max
+			
+		print("yo")
+	if not buildable_tiles["Hut"]["levels"].is_empty():
+		var new_people = 0
+		for elem in buildable_tiles["Hut"]["levels"]:
+			match elem:
+				"0":
+					new_people += 1
+				"1":
+					new_people += 5
+				"2":
+					new_people += 20
+		if underworld_people < underworld_people_max:
+			
+			underworld_people += new_people
+			if underworld_people > underworld_people_max:
+				underworld_people = underworld_people_max
+			
+	pass
+
+func overworld_people_available() -> float:
+	return (overworld_people - overworld_sick) / overworld_people
+
+func underworld_people_available() -> float:
+	return (overworld_people - overworld_sick) / overworld_people
+
+func organic_tick():
+	if not buildable_tiles["Farm"]["levels"].is_empty():
+		var modifier = 1
+		for elem in buildable_tiles["Farm"]["levels"]:
+			match elem:
+				"0":
+					modifier += 2
+				"1":
+					modifier += 20
+				"2":
+					modifier += 40	
+		
+		add_organic(int(modifier * overworld_people_available()))
+		
 	pass
 	
 func food_tick():
+	if buildable_tiles["Butcher"]["levels"].is_empty():
+		var modifier = 1
+		for elem in buildable_tiles["Butcher"]["levels"]:
+			match elem:
+				"0":
+					modifier += 2
+				"1":
+					modifier += 20
+				"2":
+					modifier += 40	
+		modifier *= int(overworld_people_available())
+		if modifier > organic:
+			modifier = organic
+		add_organic(modifier)
 	pass
 	
 func drug_tick():
-	pass
+	if buildable_tiles["Lab"]["levels"].is_empty():
+		var modifier = 1
+		for elem in buildable_tiles["Lab"]["levels"]:
+			match elem:
+				"0":
+					modifier += 2
+				"1":
+					modifier += 20
+				"2":
+					modifier += 40	
+		modifier *= int(underworld_people_available())
+		if modifier > chemical:
+			modifier = chemical
+		add_organic(modifier)
 	
-func organic_tick():
 	pass
 	
 func chemical_tick():
-	
-	pass
+	if buildable_tiles["Mine"]["levels"].is_empty():
+		var modifier = 1
+		for elem in buildable_tiles["Mine"]["levels"]:
+			match elem:
+				"0":
+					modifier += 2
+				"1":
+					modifier += 20
+				"2":
+					modifier += 40	
 
+		add_chemical(int(modifier * underworld_people_available()))
+		
+	pass
+	
+func hospital_tick():
+	if buildable_tiles["Hospital"]["levels"].is_empty():
+		var modifier = 1
+		for elem in buildable_tiles["Hospital"]["levels"]:
+			match elem:
+				"0":
+					modifier += 1
+				"1":
+					modifier += 5
+				"2":
+					modifier += 10	
+		if (overworld_sick < modifier):
+			overworld_sick = 0
+		else:
+			overworld_sick -= modifier 
+	pass
+	
+func sickbay_tick():
+	if buildable_tiles["Sickbay"]["levels"].is_empty():
+		var modifier = 1
+		for elem in buildable_tiles["Sickbay"]["levels"]:
+			match elem:
+				"0":
+					modifier += 1
+				"1":
+					modifier += 5
+				"2":
+					modifier += 10	
+		if (underworld_sick < modifier):
+			underworld_sick = 0
+		else:
+			underworld_sick -= modifier 
+	pass
+	
+func dump_tick():
+	if buildable_tiles["Dump"]["levels"].is_empty():
+		pass
+	pass
+	
+
+func calculate_gold():
+	gold += overworld_people + underworld_people
+	pass
 
 func _on_clock_three_day_event() -> void:
 	# Timer pausieren
-	$"Node2D/Static UI/Panel/Stats/Clock/DayTimer".paused = true
-	$"Node2D/Static UI/Panel/Stats/Clock/UpdateTimer".paused = true
+	$Node2D/Camera2D/Clock/DayTimer.paused = true
+	$Node2D/Camera2D/Clock/UpdateTimer.paused = true
 
 	var card1 = card_pool.pick_random()
 	var card2 = card_pool.pick_random()
@@ -167,8 +430,8 @@ func _on_clock_three_day_event() -> void:
 	
 	
 func resume_timers():
-	$"Node2D/Static UI/Panel/Stats/Clock/DayTimer".paused = false
-	$"Node2D/Static UI/Panel/Stats/Clock/UpdateTimer".paused = false
+	$Node2D/Camera2D/Clock/DayTimer.paused = false
+	$"Node2D/Camera2D/Clock/UpdateTimer".paused = false
 
 #TODO vlt noch Grafik oder so einfügen 
 var card_pool = [
@@ -190,3 +453,30 @@ var card_pool = [
 	mood_overworld += 5
 	},
 ]
+
+
+func _on_resourcetimer_timeout() -> void:
+	print("_on_clock")
+	
+	calculate_population()
+	
+	calculate_gold()
+	
+	hospital_tick()
+	
+	sickbay_tick()
+	
+	organic_tick()
+	
+	food_tick()
+	
+	chemical_tick()
+	
+	drug_tick()
+	
+	dump_tick()
+	
+	consume()
+	
+	updateUI()
+	pass # Replace with function body.

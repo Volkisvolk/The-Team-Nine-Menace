@@ -1,7 +1,8 @@
-[gd_scene load_steps=18 format=4 uid="uid://c2l8upswfsi82"]
+[gd_scene load_steps=26 format=4 uid="uid://c2l8upswfsi82"]
 
 [ext_resource type="Script" uid="uid://nhjucnigdqjd" path="res://scripts/global.gd" id="1_gq31x"]
 [ext_resource type="Texture2D" uid="uid://bflg2yef1v4n4" path="res://assets/isometric tileset/spritesheet.png" id="1_xw2hw"]
+[ext_resource type="Script" uid="uid://cnsynfugrhurm" path="res://scripts/button.gd" id="2_0jdq0"]
 [ext_resource type="Texture2D" uid="uid://by2kha40052qq" path="res://assets/images/org.png" id="2_2rktw"]
 [ext_resource type="Script" uid="uid://cx6i4m6ov35i5" path="res://screens/buildingScript.gd" id="2_iw6lq"]
 [ext_resource type="Texture2D" uid="uid://d14l3782cqok3" path="res://assets/images/food.png" id="3_b1vw7"]
@@ -9,8 +10,65 @@
 [ext_resource type="Texture2D" uid="uid://ynkaac8qwohs" path="res://assets/images/chem.png" id="4_n5buc"]
 [ext_resource type="Texture2D" uid="uid://dvoqvik8b3qrv" path="res://assets/images/Analogue_clock_face.svg" id="4_yskxe"]
 [ext_resource type="Texture2D" uid="uid://dash8mwappmbg" path="res://assets/images/drug.png" id="5_36ifp"]
+[ext_resource type="Texture2D" uid="uid://y2w1ei2a40l4" path="res://assets/images/colorscale.png" id="5_e1j5o"]
 [ext_resource type="Texture2D" uid="uid://i71ddl7nad8m" path="res://assets/images/ClockHand.png" id="5_kjt3h"]
 [ext_resource type="Texture2D" uid="uid://mwd831ya4x73" path="res://icon.svg" id="11_a6iw5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e1j5o"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e6v0d"]
+
+[sub_resource type="Animation" id="Animation_2a4k5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MoodCover:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(257, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_e1j5o"]
+resource_name = "slide_left"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MoodCover:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(257, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_e6v0d"]
+resource_name = "slide_right"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MoodCover:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(256, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pbnt5"]
+_data = {
+&"RESET": SubResource("Animation_2a4k5"),
+&"slide_left": SubResource("Animation_e1j5o"),
+&"slide_right": SubResource("Animation_e6v0d")
+}
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gq31x"]
 texture = ExtResource("1_xw2hw")
@@ -1545,64 +1603,176 @@ grow_horizontal = 2
 grow_vertical = 0
 
 [node name="Stats" type="HBoxContainer" parent="Node2D/Static UI/Panel"]
+clip_contents = true
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -908.0
-offset_top = -108.0
-offset_right = 657.0
 grow_horizontal = 2
-grow_vertical = 0
-theme_override_constants/separation = 1000
+grow_vertical = 2
+theme_override_constants/separation = 10
+alignment = 1
 
 [node name="statsOver" type="HBoxContainer" parent="Node2D/Static UI/Panel/Stats"]
 layout_mode = 2
-theme_override_constants/separation = 100
+size_flags_horizontal = 6
+size_flags_vertical = 6
 
-[node name="organictxt" type="Label" parent="Node2D/Static UI/Panel/Stats/statsOver"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Node2D/Static UI/Panel/Stats/statsOver"]
+layout_mode = 2
+
+[node name="organictxt" type="Label" parent="Node2D/Static UI/Panel/Stats/statsOver/HBoxContainer"]
+custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 text = "000"
 
-[node name="org" type="Sprite2D" parent="Node2D/Static UI/Panel/Stats/statsOver/organictxt"]
+[node name="org" type="Sprite2D" parent="Node2D/Static UI/Panel/Stats/statsOver/HBoxContainer/organictxt"]
 position = Vector2(-17, 10)
 scale = Vector2(0.1025, 0.1025)
 texture = ExtResource("2_2rktw")
 
-[node name="foodtxt" type="Label" parent="Node2D/Static UI/Panel/Stats/statsOver"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="Node2D/Static UI/Panel/Stats/statsOver"]
+layout_mode = 2
+
+[node name="foodtxt" type="Label" parent="Node2D/Static UI/Panel/Stats/statsOver/HBoxContainer2"]
+custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 text = "111"
 
-[node name="food" type="Sprite2D" parent="Node2D/Static UI/Panel/Stats/statsOver/foodtxt"]
+[node name="food" type="Sprite2D" parent="Node2D/Static UI/Panel/Stats/statsOver/HBoxContainer2/foodtxt"]
 position = Vector2(-17, 10)
 scale = Vector2(0.1025, 0.1025)
 texture = ExtResource("3_b1vw7")
 
-[node name="Clock" type="Node2D" parent="Node2D/Static UI/Panel/Stats"]
-position = Vector2(908, 51)
+[node name="Button" type="Button" parent="Node2D/Static UI/Panel/Stats"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/focus = SubResource("StyleBoxFlat_e1j5o")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_e6v0d")
+text = "Over/Under"
+script = ExtResource("2_0jdq0")
+
+[node name="GradientBar" type="TextureRect" parent="Node2D/Static UI/Panel/Stats/Button"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -256.0
+offset_top = -53.5
+offset_right = 256.0
+offset_bottom = 53.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_e1j5o")
+
+[node name="OverworldPointer" type="ColorRect" parent="Node2D/Static UI/Panel/Stats/Button"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+grow_vertical = 2
+color = Color(0.000113828, 0.000113828, 0.000113828, 1)
+
+[node name="UnderworldPointer" type="ColorRect" parent="Node2D/Static UI/Panel/Stats/Button"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -5.0
+offset_top = -47.0
+offset_bottom = 47.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="MoodCover" type="ColorRect" parent="Node2D/Static UI/Panel/Stats/Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 257.0
+offset_right = -60.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.303, 0.303, 0.303, 0.95)
+
+[node name="CoverLabel" type="Label" parent="Node2D/Static UI/Panel/Stats/Button/MoodCover"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -71.0
+offset_top = -41.0
+offset_right = 71.0
+offset_bottom = 41.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/Static UI/Panel/Stats/Button"]
+libraries = {
+&"": SubResource("AnimationLibrary_pbnt5")
+}
+
+[node name="statsUnder" type="HBoxContainer" parent="Node2D/Static UI/Panel/Stats"]
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="chemic" type="Label" parent="Node2D/Static UI/Panel/Stats/statsUnder"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "222"
+
+[node name="chem" type="Sprite2D" parent="Node2D/Static UI/Panel/Stats/statsUnder/chemic"]
+position = Vector2(-13, 10)
+scale = Vector2(0.1025, 0.1025)
+texture = ExtResource("4_n5buc")
+
+[node name="drugs" type="Label" parent="Node2D/Static UI/Panel/Stats/statsUnder"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "333"
+
+[node name="drug" type="Sprite2D" parent="Node2D/Static UI/Panel/Stats/statsUnder/drugs"]
+position = Vector2(-17, 10)
+scale = Vector2(0.1025, 0.1025)
+texture = ExtResource("5_36ifp")
+
+[node name="Camera2D" type="Camera2D" parent="Node2D"]
+
+[node name="Clock" type="Node2D" parent="Node2D/Camera2D"]
+position = Vector2(885, -465)
 script = ExtResource("4_kjt3h")
 
-[node name="ClockFace" type="Sprite2D" parent="Node2D/Static UI/Panel/Stats/Clock"]
+[node name="ClockFace" type="Sprite2D" parent="Node2D/Camera2D/Clock"]
 position = Vector2(1.78814e-07, -9)
 scale = Vector2(0.41, 0.41)
 texture = ExtResource("4_yskxe")
 
-[node name="ClockHand" type="Sprite2D" parent="Node2D/Static UI/Panel/Stats/Clock"]
+[node name="ClockHand" type="Sprite2D" parent="Node2D/Camera2D/Clock"]
 position = Vector2(0, -10)
 scale = Vector2(0.0277778, 0.0456639)
 texture = ExtResource("5_kjt3h")
 centered = false
 offset = Vector2(-20, -700)
 
-[node name="UpdateTimer" type="Timer" parent="Node2D/Static UI/Panel/Stats/Clock"]
+[node name="UpdateTimer" type="Timer" parent="Node2D/Camera2D/Clock"]
 wait_time = 60.0
 autostart = true
 
-[node name="DayTimer" type="Timer" parent="Node2D/Static UI/Panel/Stats/Clock"]
+[node name="DayTimer" type="Timer" parent="Node2D/Camera2D/Clock"]
 
-[node name="DateLabel" type="Label" parent="Node2D/Static UI/Panel/Stats/Clock"]
+[node name="ResourceTimer" type="Timer" parent="Node2D/Camera2D/Clock"]
+wait_time = 5.0
+autostart = true
+
+[node name="DateLabel" type="Label" parent="Node2D/Camera2D/Clock"]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -1615,37 +1785,6 @@ offset_bottom = 55.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "Day:"
-
-[node name="statsUnder" type="HBoxContainer" parent="Node2D/Static UI/Panel/Stats"]
-layout_mode = 2
-theme_override_constants/separation = 100
-
-[node name="chemic" type="Label" parent="Node2D/Static UI/Panel/Stats/statsUnder"]
-layout_mode = 2
-text = "222"
-
-[node name="chem" type="Sprite2D" parent="Node2D/Static UI/Panel/Stats/statsUnder/chemic"]
-position = Vector2(-13, 10)
-scale = Vector2(0.1025, 0.1025)
-texture = ExtResource("4_n5buc")
-
-[node name="drugs" type="Label" parent="Node2D/Static UI/Panel/Stats/statsUnder"]
-layout_mode = 2
-text = "333"
-
-[node name="drug" type="Sprite2D" parent="Node2D/Static UI/Panel/Stats/statsUnder/drugs"]
-position = Vector2(-17, 10)
-scale = Vector2(0.1025, 0.1025)
-texture = ExtResource("5_36ifp")
-
-[node name="Button" type="Button" parent="Node2D"]
-offset_left = 657.0
-offset_top = 432.0
-offset_right = 960.0
-offset_bottom = 540.0
-text = "Over/Under"
-
-[node name="Camera2D" type="Camera2D" parent="Node2D"]
 
 [node name="CardEventUI" type="Control" parent="Node2D/Camera2D"]
 visible = false
@@ -1756,12 +1895,8 @@ text = "Upgrade"
 [node name="upgradeCost" type="Label" parent="Node2D/buildInfoDialog/VBoxContainer"]
 layout_mode = 2
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 10.0
-autostart = true
-
-[connection signal="three_day_event" from="Node2D/Static UI/Panel/Stats/Clock" to="." method="_on_clock_three_day_event"]
-[connection signal="pressed" from="Node2D/Button" to="Node2D/board" method="_on_button_pressed"]
-[connection signal="upgrade_building" from="Node2D/board" to="." method="_on_board_upgrade_building"]
+[connection signal="pressed" from="Node2D/Static UI/Panel/Stats/Button" to="Node2D/Static UI/Panel/Stats/Button" method="_on_button_pressed"]
+[connection signal="three_day_event" from="Node2D/Camera2D/Clock" to="." method="_on_clock_three_day_event"]
+[connection signal="timeout" from="Node2D/Camera2D/Clock/ResourceTimer" to="." method="_on_resourcetimer_timeout"]
 [connection signal="confirmed" from="Node2D/buildDialog" to="Node2D/board" method="_on_build_dialog_confirmed"]
 [connection signal="pressed" from="Node2D/buildInfoDialog/VBoxContainer/upgradeButton" to="Node2D/board" method="_on_upgrade_button_pressed"]

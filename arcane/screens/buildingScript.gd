@@ -6,7 +6,6 @@ extends Node
 @onready var buildDialog: AcceptDialog = $"../buildDialog"
 @onready var buildInfoDialog: AcceptDialog = $"../buildInfoDialog"
 @onready var levelLabel: Label = $"../buildInfoDialog/VBoxContainer/levelLabel"
-@onready var camera: Camera2D = $"../Camera2D"
 @onready var upgradeCostLabel: Label = $"../buildInfoDialog/VBoxContainer/upgradeCost"
 @onready var rootNode: Node2D = $"../.."
 
@@ -15,7 +14,6 @@ signal upgrade_building
 var selected_building_type: String = ""
 var clickedTile: Vector2i
 var current_center_tile: Vector2i  # Zentrum des aktiven Gebäudes für Info & Upgrade
-var worldChangeBool = true
 
 
 func _ready():
@@ -86,7 +84,6 @@ func _on_build_dialog_confirmed():
 				buildingLayer.set_cell(pos, 0, Vector2i(6, 6))  # Beispiel-Kachel
 				data["built_tiles"].append(pos)
 			data["levels"][clickedTile] = rootNode.startLevel
-			data["upgradeCosts"][clickedTile] = rootNode.startUpgradeCost
 			show_build_info(selected_building_type, clickedTile)
 		else:
 			print("Ein Teil des 3x3-Felds ist schon bebaut.")
@@ -102,7 +99,7 @@ func show_build_info(gebaeude_typ: String, tile: Vector2i) -> void:
 		var level = data["levels"].get(tile, 1)
 		levelLabel.text = "Level: " + str(level)
 		#TODO: Placeholder
-		#upgradeCostLabel.text = "Upgrade-Kosten: " + rootNode.upgradeArr[level] + " Gold"
+		upgradeCostLabel.text = "Upgrade-Kosten: " + str(data["upgradeCosts"][level]) + " Gold"
 		buildInfoDialog.popup_centered()
 	else:
 		print("Fehler: Gebäudetyp nicht bekannt für Info-Popup:", gebaeude_typ)
@@ -117,12 +114,3 @@ func _on_upgrade_button_pressed():
 			emit_signal("upgrade_building", selected_building_type, data["levels"][current_center_tile])
 		else:
 			print("Kein Level-Eintrag für:", current_center_tile)
-
-
-func _on_button_pressed() -> void:
-	if worldChangeBool:
-		camera.position = Vector2(0,972)
-		worldChangeBool = false
-	else:
-		camera.position = Vector2(0.0,0.0)
-		worldChangeBool = true

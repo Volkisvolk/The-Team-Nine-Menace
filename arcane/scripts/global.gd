@@ -458,28 +458,28 @@ func sickbay_tick():
 	
 func dump_tick():
 	if buildable_tiles["Dump"]["levels"].is_empty():
-		return
+		return  # Kein aktiver Dump gebaut
 
 	var total_reduction := 0
 
 	for level in buildable_tiles["Dump"]["levels"].values():
-		match str(level):
-			"0":
-				total_reduction += 5
-			"1":
+		match int(level):
+			0:
+				total_reduction += 1
+			1:
 				total_reduction += 15
-			"2":
+			2:
 				total_reduction += 30
-			"3":
+			3:
 				total_reduction += 60
-			"4":
+			4:
 				total_reduction += 80
 			_:
-				total_reduction += 150  # Default für Level 5+
+				total_reduction += 150  # Für Level 5+
 
-	# Reduziere Trash, aber nicht unter 0
 	trash = max(0, trash - total_reduction)
-	print("Müll reduziert um:", total_reduction, " → Neuer Stand:", trash)
+	print("🗑️ Müll reduziert um:", total_reduction, " → Neuer Stand:", trash)
+
 
 	
 

@@ -2,7 +2,7 @@ extends Button
 
 var worldChangeBool := true  # Start in Overworld
 @onready var root : Node2D = get_tree().current_scene
-@onready var camera : Camera2D = $"../../../../Camera2D"
+@onready var camera : Camera2D =$"../../../../../Camera2D"
 @onready var gradient_bar = $GradientBar
 @onready var overworld_pointer = $OverworldPointer
 @onready var underworld_pointer = $UnderworldPointer

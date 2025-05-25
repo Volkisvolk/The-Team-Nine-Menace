@@ -240,14 +240,20 @@ func consume():
 
 
 func updateUI():
-	$"Node2D/Static UI/Panel/Stats/statsOver/HBoxContainer/organictxt".text= str(organic)
-	$"Node2D/Static UI/Panel/Stats/statsOver/HBoxContainer2/foodtxt".text=str(food)
-	#$"Node2D/Static UI/Panel/Stats/statsOver/populationovertxt".text=str(overworld_people)
-
-	$"Node2D/Static UI/Panel/Stats/statsUnder/chemic".text=str(chemical)
-	$"Node2D/Static UI/Panel/Stats/statsUnder/drugs".text=str(drug)
-	#$"Node2D/Static UI/Panel/Stats/statsUnder/populationundertxt".text=str(underworld_people)
-
+	$"Node2D/Static UI/Panel/Stats/statsOver/overworld_people/people/peopletxt".text = str(overworld_people-overworld_sick)
+	$"Node2D/Static UI/Panel/Stats/statsOver/overworld_sick/sickpeople/sickpeopletxt".text=str(overworld_sick)
+	$"Node2D/Static UI/Panel/Stats/statsOver/overworld_people_max/people_max/overworld_people_maxtxt".text=str(overworld_people_max)
+	$"Node2D/Static UI/Panel/Stats/statsOver/organic/org/organictxt".text=str(organic)
+	$"Node2D/Static UI/Panel/Stats/statsOver/food/food/foodtxt".text=str(food)
+	$"Node2D/Static UI/Panel/Stats/statsOver/gold/gold/goldtxt".text=str(gold)
+	
+	
+	$"Node2D/Static UI/Panel/Stats/statsUnder/underworld_people/people/underpeopletxt".text =str(underworld_people-underworld_sick)
+	$"Node2D/Static UI/Panel/Stats/statsUnder/underworld_sick/sickpeople/underpeopletxt".text= str(underworld_sick)
+	$"Node2D/Static UI/Panel/Stats/statsUnder/underworld_people_max/people_max/underworld_people_maxtxt".text=str(underworld_people_max)
+	$"Node2D/Static UI/Panel/Stats/statsUnder/chemic/chemic/chemtxt".text=str(chemical)
+	$"Node2D/Static UI/Panel/Stats/statsUnder/drug/drug/drugtxt".text=str(drug)
+	$"Node2D/Static UI/Panel/Stats/statsUnder/trash/trash/trashtxt".text=str(trash)
 	pass
 
 func calculate_population():

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ynkaac8qwohs"
-path="res://.godot/imported/chem.png-6a9a3812f44ebf7173bec43dc7f93309.ctex"
+uid="uid://bfjr0h6kb23e8"
+path="res://.godot/imported/camping_450dp_E3E3E3_FILL0_wght400_GRAD0_opsz48.png-7f5f62bf5eb4f4a4af97b5968c51ecfe.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/chem.png"
-dest_files=["res://.godot/imported/chem.png-6a9a3812f44ebf7173bec43dc7f93309.ctex"]
+source_file="res://assets/images/UI/camping_450dp_E3E3E3_FILL0_wght400_GRAD0_opsz48.png"
+dest_files=["res://.godot/imported/camping_450dp_E3E3E3_FILL0_wght400_GRAD0_opsz48.png-7f5f62bf5eb4f4a4af97b5968c51ecfe.ctex"]
 
 [params]
 
